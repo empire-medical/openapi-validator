@@ -1,0 +1,19 @@
+Validator:
+
+1. valid schema, pusta tablica danych, zwraca blad braku pola
+2. valid schema, tablica nie pusta ale nie zawiera pola, zwraca blad braku pola
+3. valid schema, tablica ma pola, nie zwraca bledu
+4. valid schema, tablica nie ma pola ale pole nie jest wymagane, nie zwraca bledu
+5. valid schema, pusta tablica ale pole nie jest wymagane, nie zwraca bledu
+
+
+DataValidator:
+
+1. pole wymagane, brak pola - blad - done
+1. pole wymagane jest null - blad - done
+1. pole wymagane jest innego typu - blad - done
+1. brak nie wymagane bled - brak blede - done
+1. pole nie wymagane jest innego typu - blad - done
+
+2. nullable wymagane pole jest null - brak bledu
+2. nullable nie wmagane pole jest null - brak bledu

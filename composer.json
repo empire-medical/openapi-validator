@@ -4,7 +4,9 @@
   "description": "Validates data against provide openapi spec",
   "keywords": ["openapi", "swagger"],
   "require": {
-    "php": ">=7.0"
+    "php": ">=7.0",
+    "symfony/yaml": "^4.1",
+    "justinrainbow/json-schema": "^5.2"
   },
   "autoload": {
     "psr-4": {
