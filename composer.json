@@ -1,0 +1,22 @@
+{
+  "name": "mmal/openapi-validator",
+  "license": "proprietary",
+  "description": "Validates data against provide openapi spec",
+  "keywords": ["openapi", "swagger"],
+  "require": {
+    "php": ">=7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mmal\\OpenapiValidator\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Mmal\\OpenapiValidator\\Tests\\": "tests"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.4"
+  }
+}
