@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator\Error;
 
-
 class NoError implements ErrorInterface
 {
     public function hasErrors(): bool
@@ -16,5 +15,4 @@ class NoError implements ErrorInterface
     {
         return '';
     }
-
 }

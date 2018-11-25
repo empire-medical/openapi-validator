@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator\Error;
 
-
 use Mmal\OpenapiValidator\SchemaInterface;
 
 class Error implements ErrorInterface
@@ -41,5 +40,4 @@ class Error implements ErrorInterface
             'given: '.PHP_EOL.
             json_encode($this->actualData).PHP_EOL;
     }
-
 }

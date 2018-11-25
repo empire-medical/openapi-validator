@@ -15,7 +15,7 @@ class ErrorCollection implements ErrorInterface
 
     public function __toString(): string
     {
-        return implode(PHP_EOL , $this->errors);
+        return implode(PHP_EOL, $this->errors);
     }
 
     public function hasErrors(): bool

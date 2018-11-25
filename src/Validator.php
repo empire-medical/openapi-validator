@@ -3,12 +3,40 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator;
 
+use Mmal\OpenapiValidator\DataValidator\DataValidatorInterface;
+use Mmal\OpenapiValidator\DataValidator\JsonGuardDataValidator;
 use Symfony\Component\Yaml\Yaml;
 
 class Validator
 {
-    public function validate(string $schema)
+    /** @var Spec */
+    private $spec;
+
+    /**
+     */
+    public function __construct(string $schema)
     {
-        $parsed = Yaml::parse($schema);
+        $parsedSchema = Yaml::parse($schema);
+        $this->spec = Spec::fromArray($parsedSchema);
+    }
+
+
+    public function validate(string $operationId, int $statusCode, array $responseData)
+    {
+        $schema = $this->spec
+            ->getOperationById($operationId)
+            ->getSchemaByResponse($statusCode);
+
+        $dataValidator = $this->getDataValidator();
+
+        return $dataValidator->validate($responseData, $schema);
+    }
+
+    /**
+     * @return DataValidatorInterface
+     */
+    protected function getDataValidator(): DataValidatorInterface
+    {
+        return new JsonGuardDataValidator();
     }
 }

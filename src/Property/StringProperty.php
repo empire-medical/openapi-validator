@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator\Property;
 
-
 class StringProperty implements PropertyInterface
 {
     /** @var string */
@@ -47,5 +46,4 @@ class StringProperty implements PropertyInterface
     {
         $this->name = $name;
     }
-
 }
