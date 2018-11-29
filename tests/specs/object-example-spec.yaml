@@ -1,0 +1,55 @@
+info:
+
+paths:
+  /books:
+    get:
+      operationId: getBooks
+      responses:
+        '200':
+          description: Fetch list of books
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - name
+                properties:
+                  name:
+                    type: string
+                    nullable: false
+                    example: "Vulcan lives"
+                  nestedObj:
+                    type: object
+                    required:
+                      - tag
+                    properties:
+                      tag:
+                        type: string
+                        example: "foo"
+  /v2/books:
+    get:
+      operationId: getBooksWithRequiredNestedObj
+      responses:
+        '200':
+          description: Fetch list of books
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - name
+                  - nestedObj
+                properties:
+                  name:
+                    type: string
+                    nullable: false
+                    example: "Vulcan lives"
+                  nestedObj:
+                    type: object
+                    required:
+                      - tag
+                    properties:
+                      tag:
+                        type: string
+                        example: "foo"
+openapi: 3.0.0

@@ -17,3 +17,9 @@ DataValidator:
 
 2. nullable wymagane pole jest null - brak bledu
 2. nullable nie wmagane pole jest null - brak bledu
+
+3. zagniezdzony obiekt z property jest valid - brak bledu - done
+3. zagniezdzony obiekt nie jest wymagany i go nie ma - brak bledu - done
+
+
+4. array obiektow jest valid

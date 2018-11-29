@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator\Property;
 
-class StringProperty implements PropertyInterface
+class ScalarProperty implements PropertyInterface
 {
     /** @var string */
     private $name;
@@ -12,13 +12,17 @@ class StringProperty implements PropertyInterface
     /** @var mixed */
     private $example;
 
+    /** @var string */
+    private $type;
+
     /** @var bool */
     private $nullable = false;
 
     /**
      */
-    public function __construct(string $name, bool $nullable = false)
+    public function __construct(string $type, string $name, bool $nullable = false)
     {
+        $this->type = $type;
         $this->name = $name;
         $this->nullable = $nullable;
     }
@@ -36,7 +40,7 @@ class StringProperty implements PropertyInterface
     public function toArray(): array
     {
         return [
-            'type' => 'string',
+            'type' => $this->type,
             'example' => $this->example,
             'nullable' => $this->nullable
         ];

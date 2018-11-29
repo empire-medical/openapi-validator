@@ -1,0 +1,44 @@
+info:
+
+paths:
+  /books:
+    get:
+      operationId: getBooksList
+      responses:
+        '200':
+          description: Fetch list of books
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - tags
+                properties:
+                  tags:
+                    type: array
+                    items:
+                      type: string
+  /v2/books:
+    get:
+      operationId: getBooksListWithObjects
+      responses:
+        '200':
+          description: Fetch list of books
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - tags
+                properties:
+                  tags:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - name
+                      properties:
+                        name:
+                          type: string
+                          nullable: false
+openapi: 3.0.0

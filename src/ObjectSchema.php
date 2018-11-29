@@ -6,7 +6,7 @@ namespace Mmal\OpenapiValidator;
 
 use Mmal\OpenapiValidator\Property\PropertyInterface;
 
-class ObjectSchema implements SchemaInterface
+class ObjectSchema implements PropertyInterface
 {
     /** @var array|PropertyInterface[] */
     private $properties = [];
@@ -14,12 +14,21 @@ class ObjectSchema implements SchemaInterface
     /** @var array|string[]  */
     private $required = [];
 
+    /** @var string */
+    private $name;
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
     /**
      */
-    public function __construct(array $properties, array $required)
+    public function __construct(array $properties, array $required, string $name = '')
     {
         $this->properties = $properties;
         $this->required = $required;
+        $this->name = $name;
     }
 
     public function toArray(): array

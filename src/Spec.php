@@ -12,7 +12,7 @@ class Spec
     private $operations = [];
 
     /**
-     * @param $operations array|OperationInterface[]
+     * @param array|OperationInterface[] $operations
      */
     public function __construct(array $operations)
     {
@@ -50,11 +50,7 @@ class Spec
         return new Operation($operation['operationId'], $responses);
     }
 
-
-    /**
-     * @return SchemaInterface
-     */
-    protected static function getSchema(array $data): ObjectSchema
+    protected static function getSchema(array $data): SchemaInterface
     {
         return (new SchemaFactory())->fromArray($data);
     }

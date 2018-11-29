@@ -11,9 +11,14 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - name
                 properties:
                   name:
                     type: string
                     nullable: false
                     example: "Vulcan lives"
+                  tag:
+                    type: string
+                    example: "foo"
 openapi: 3.0.0
