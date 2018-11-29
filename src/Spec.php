@@ -29,9 +29,15 @@ class Spec
     public static function fromArray(array $data)
     {
         $operations = [];
+        $refResolver = new ReferenceResolver([]);
+        if(isset($data['components']['schemas'])) {
+            foreach($data['components']['schemas'] as $name => $schema) {
+                $refResolver->addRef('#/components/schemas/' . $name, $schema);
+            }
+        }
         foreach ($data['paths'] as $urlTemplate => $methods) {
             foreach ($methods as $method => $operation) {
-                $operations[] = self::makeOperation($operation);
+                $operations[] = self::makeOperation($operation, $refResolver);
             }
         }
         return new self($operations);
@@ -41,17 +47,17 @@ class Spec
      * @param array $operation
      * @return Operation
      */
-    protected static function makeOperation(array $operation): Operation
+    protected static function makeOperation(array $operation, ReferenceResolver $referenceResolver): Operation
     {
         $responses = [];
         foreach ($operation['responses'] as $statusCode => $response) {
-            $responses[] = new Response((int)$statusCode, self::getSchema($response['content']['application/json']['schema']));
+            $responses[] = new Response((int)$statusCode, self::getSchema($response['content']['application/json']['schema'], $referenceResolver));
         }
         return new Operation($operation['operationId'], $responses);
     }
 
-    protected static function getSchema(array $data): SchemaInterface
+    protected static function getSchema(array $data, ReferenceResolver $referenceResolver): SchemaInterface
     {
-        return (new SchemaFactory())->fromArray($data);
+        return (new SchemaFactory($referenceResolver))->fromArray($data);
     }
 }

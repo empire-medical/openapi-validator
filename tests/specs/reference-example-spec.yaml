@@ -1,0 +1,34 @@
+info:
+
+paths:
+  /books:
+    get:
+      operationId: getBooksWithReference
+      responses:
+        '200':
+          description: Fetch list of books
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - name
+                properties:
+                  name:
+                    type: string
+                    nullable: false
+                    example: "Vulcan lives"
+                  nestedObj:
+                    $ref: "#/components/schemas/nestedObj"
+
+components:
+  schemas:
+    nestedObj:
+      type: object
+      required:
+        - tag
+      properties:
+        tag:
+          type: string
+          example: "foo"
+openapi: 3.0.0

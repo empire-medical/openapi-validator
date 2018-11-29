@@ -9,8 +9,22 @@ use Mmal\OpenapiValidator\Property\ScalarProperty;
 
 class SchemaFactory
 {
+    /** @var ReferenceResolver */
+    private $referenceResolver;
+
+    /**
+     */
+    public function __construct(ReferenceResolver $referenceResolver)
+    {
+        $this->referenceResolver = $referenceResolver;
+    }
+
+
     public function fromArray(array $data, string $name = null)
     {
+        if (isset($data['$ref'])) {
+            $data = $this->referenceResolver->resolve($data['$ref']);
+        }
         if ($data['type'] === 'object') {
             $properties = [];
             foreach ($data['properties'] as $nameOfProperty => $property) {
