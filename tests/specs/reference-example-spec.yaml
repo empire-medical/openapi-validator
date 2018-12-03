@@ -20,7 +20,21 @@ paths:
                     example: "Vulcan lives"
                   nestedObj:
                     $ref: "#/components/schemas/nestedObj"
-
+  /books2:
+    get:
+      operationId: referenceInReference
+      responses:
+        '200':
+          description: Fetch list of books
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - nestedObj
+                properties:
+                  nestedObj:
+                     $ref: "#/components/schemas/nestedObj2"
 components:
   schemas:
     nestedObj:
@@ -31,4 +45,11 @@ components:
         tag:
           type: string
           example: "foo"
+    nestedObj2:
+      type: object
+      required:
+        - nested
+      properties:
+        nested:
+          $ref: "#/components/schemas/nestedObj"
 openapi: 3.0.0
