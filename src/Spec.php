@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator;
 
+use Mmal\OpenapiValidator\Reference\ReferenceResolver;
 use Mmal\OpenapiValidator\Response\Response;
 
 class Spec

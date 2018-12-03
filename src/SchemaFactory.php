@@ -6,6 +6,7 @@ namespace Mmal\OpenapiValidator;
 
 use Mmal\OpenapiValidator\Property\ArrayProperty;
 use Mmal\OpenapiValidator\Property\ScalarProperty;
+use Mmal\OpenapiValidator\Reference\ReferenceResolver;
 
 class SchemaFactory
 {

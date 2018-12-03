@@ -45,6 +45,16 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/nestedObj"
+  /v4/books:
+    get:
+      operationId: missingRefs
+      responses:
+        '200':
+          description: Fetch list of books
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IdontExist"
 components:
   schemas:
     nestedObj:

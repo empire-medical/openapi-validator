@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mmal\OpenapiValidator\Tests;
 
 
+use Mmal\OpenapiValidator\Reference\MissingReferenceException;
 use Mmal\OpenapiValidator\Validator;
 use PHPUnit\Framework\TestCase;
 
@@ -83,6 +84,39 @@ class ReferenceValidatorTest extends TestCase
         $this->assertTrue($error->hasErrors());
     }
 
+    public function testSchemaReferenceValid()
+    {
+        $validator = $this->getTestedClass();
+
+        $error = $validator->validate('schemaAsReference', 200, [
+            'tag' => 'foor'
+        ]);
+
+        $this->assertFalse($error->hasErrors());
+    }
+
+    public function testSchemaReferenceInValid()
+    {
+        $validator = $this->getTestedClass();
+
+        $error = $validator->validate('schemaAsReference', 200, [
+            'tag' => 1
+        ]);
+
+        $this->assertTrue($error->hasErrors());
+    }
+
+    public function testMissingRef()
+    {
+        $this->expectException(MissingReferenceException::class);
+
+        $schema = file_get_contents(__DIR__.'/specs/reference-missing-spec.yaml');
+        $validator =  new Validator($schema);
+
+        $error = $validator->validate('missingRef', 200, [
+            'tag' => 1
+        ]);
+    }
 
     protected function getTestedClass(): Validator
     {
