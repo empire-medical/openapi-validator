@@ -10,7 +10,7 @@ use Mmal\OpenapiValidator\Property\PropertyInterface;
 class AllOfSchema implements PropertyInterface
 {
     /** @var array|PropertyInterface[] */
-    private $innerSchemas = [];
+    protected $innerSchemas = [];
 
     /** @var string */
     private $name;

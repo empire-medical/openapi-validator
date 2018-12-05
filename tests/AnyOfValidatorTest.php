@@ -9,21 +9,9 @@ use Mmal\OpenapiValidator\Reference\MissingReferenceException;
 use Mmal\OpenapiValidator\Validator;
 use PHPUnit\Framework\TestCase;
 
-class AllOfValidatorTest extends TestCase
+class AnyOfValidatorTest extends TestCase
 {
-    public function testHasAllRequiredProperties()
-    {
-        $validator = $this->getTestedClass();
-
-        $error = $validator->validate('getBooks', 200, [
-            'name' => 'foo',
-            'length' => 10
-        ]);
-
-        $this->assertFalse($error->hasErrors());
-    }
-
-    public function testMissingSomeProperities()
+    public function testIsValidAgainstOne()
     {
         $validator = $this->getTestedClass();
 
@@ -31,16 +19,26 @@ class AllOfValidatorTest extends TestCase
             'name' => 'foo'
         ]);
 
-        $this->assertTrue($error->hasErrors());
+        $this->assertFalse($error->hasErrors());
     }
 
-    public function testSomePropertiesAreInvalid()
+    public function testIsValidAgainstAnother()
     {
         $validator = $this->getTestedClass();
 
         $error = $validator->validate('getBooks', 200, [
-            'name' => 'foo',
-            'length' => '10'
+            'name' => 123
+        ]);
+
+        $this->assertFalse($error->hasErrors());
+    }
+
+    public function testIsNotValid()
+    {
+        $validator = $this->getTestedClass();
+
+        $error = $validator->validate('getBooks', 200, [
+            'name' => 123.345
         ]);
 
         $this->assertTrue($error->hasErrors());
@@ -48,7 +46,7 @@ class AllOfValidatorTest extends TestCase
 
     protected function getTestedClass(): Validator
     {
-        $schema = file_get_contents(__DIR__.'/specs/allof-example-spec.yaml');
+        $schema = file_get_contents(__DIR__.'/specs/anyof-example-spec.yaml');
         return new Validator($schema);
     }
 }

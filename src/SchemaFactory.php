@@ -31,6 +31,14 @@ class SchemaFactory
 
             return new AllOfSchema($schemas, $name ?? '');
         }
+        if (isset($data['anyOf'])) {
+            $schemas = [];
+            foreach ($data['anyOf'] as $row) {
+                $schemas[] = $this->fromArray($row);
+            }
+
+            return new AnyOfSchema($schemas, $name ?? '');
+        }
         if (isset($data['$ref'])) {
             $data = $this->referenceResolver->resolve($data['$ref']);
         }
