@@ -23,6 +23,14 @@ class SchemaFactory
 
     public function fromArray(array $data, string $name = null)
     {
+        if (isset($data['allOf'])) {
+            $schemas = [];
+            foreach ($data['allOf'] as $row) {
+                $schemas[] = $this->fromArray($row);
+            }
+
+            return new AllOfSchema($schemas, $name ?? '');
+        }
         if (isset($data['$ref'])) {
             $data = $this->referenceResolver->resolve($data['$ref']);
         }

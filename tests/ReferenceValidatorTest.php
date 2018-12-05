@@ -9,6 +9,9 @@ use Mmal\OpenapiValidator\Reference\MissingReferenceException;
 use Mmal\OpenapiValidator\Validator;
 use PHPUnit\Framework\TestCase;
 
+//@todo references outside components
+//@todo nullable references
+
 class ReferenceValidatorTest extends TestCase
 {
     public function testNestedObjectNotRequired()
