@@ -31,8 +31,8 @@ class Spec
     {
         $operations = [];
         $refResolver = new ReferenceResolver([]);
-        if(isset($data['components']['schemas'])) {
-            foreach($data['components']['schemas'] as $name => $schema) {
+        if (isset($data['components']['schemas'])) {
+            foreach ($data['components']['schemas'] as $name => $schema) {
                 $refResolver->addRef('#/components/schemas/' . $name, $schema);
             }
         }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator;
 
-
 class AnyOfSchema extends AllOfSchema
 {
     public function toArray(): array
@@ -15,5 +14,4 @@ class AnyOfSchema extends AllOfSchema
             }, $this->innerSchemas),
         ];
     }
-
 }

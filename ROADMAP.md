@@ -4,11 +4,11 @@
 - Support for references
 - Support for allOf
 - Support for anyOf
+- Support for nullable
 - Add CI
 
 ##1.1
-- Support for format
-- Support for nullable
+- Support for discriminator
 
 ##1.2
-- Support for discriminator
+- Support for format

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator;
 
-
 use Mmal\OpenapiValidator\Property\PropertyInterface;
 
 class AllOfSchema implements PropertyInterface

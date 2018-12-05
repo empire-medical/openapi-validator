@@ -51,7 +51,6 @@ class SchemaFactory
             return new ObjectSchema($properties, $data['required'] ?? [], $name ?? '');
         }
         if ($data['type'] === 'array') {
-
             return new ArrayProperty($name ?? '', $this->fromArray($data['items']));
         }
 

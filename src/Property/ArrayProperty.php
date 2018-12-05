@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator\Property;
 
-
 use Mmal\OpenapiValidator\SchemaInterface;
 
 class ArrayProperty implements PropertyInterface
@@ -34,5 +33,4 @@ class ArrayProperty implements PropertyInterface
             'items' => $this->items->toArray()
         ];
     }
-
 }

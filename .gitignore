@@ -2,3 +2,4 @@ vendor
 .idea
 TestList
 ROADMAP.md
+.php_cs.cache
