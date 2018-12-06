@@ -39,10 +39,15 @@ class ScalarProperty implements PropertyInterface
 
     public function toArray(): array
     {
+        $types = [$this->type];
+        if ($this->nullable === true) {
+            $types[] = 'null';
+        }
+
         return [
-            'type' => $this->type,
+            'type' => $types,
             'example' => $this->example,
-            'nullable' => $this->nullable
+            'nullable' => $this->nullable,
         ];
     }
 

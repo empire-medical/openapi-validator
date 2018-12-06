@@ -5,10 +5,8 @@
 - Support for allOf
 - Support for anyOf
 - Support for nullable
+- Support for discriminator
 - Add CI
 
 ##1.1
-- Support for discriminator
-
-##1.2
 - Support for format

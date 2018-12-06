@@ -48,7 +48,7 @@ class SchemaFactory
                 $properties[] = $this->fromArray($property, $nameOfProperty);
             }
 
-            return new ObjectSchema($properties, $data['required'] ?? [], $name ?? '');
+            return new ObjectSchema($properties, $data['required'] ?? [], $name ?? '', $data['nullable'] ?? false);
         }
         if ($data['type'] === 'array') {
             return new ArrayProperty($name ?? '', $this->fromArray($data['items']));
