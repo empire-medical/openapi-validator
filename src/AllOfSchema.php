@@ -21,8 +21,10 @@ class AllOfSchema implements PropertyInterface
 
     /**
      */
-    public function __construct(array $innerSchemas, string $name = '')
-    {
+    public function __construct(
+        array $innerSchemas,
+        string $name = ''
+    ) {
         $this->innerSchemas = $innerSchemas;
         $this->name = $name;
     }
@@ -34,5 +36,9 @@ class AllOfSchema implements PropertyInterface
                 return $schema->toArray();
             }, $this->innerSchemas),
         ];
+    }
+
+    public function applyDiscriminatorData($actualData)
+    {
     }
 }

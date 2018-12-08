@@ -14,12 +14,16 @@ class ArrayProperty implements PropertyInterface
     /** @var SchemaInterface */
     private $items;
 
+    /** @var bool */
+    private $nullable;
+
     /**
      */
-    public function __construct(string $name, SchemaInterface $items)
+    public function __construct(string $name, SchemaInterface $items, bool $nullable = false)
     {
         $this->name = $name;
         $this->items = $items;
+        $this->nullable = $nullable;
     }
 
     public function getName(): string
@@ -29,8 +33,21 @@ class ArrayProperty implements PropertyInterface
 
     public function toArray(): array
     {
+        $types = ['array'];
+        if ($this->nullable === true) {
+            $types[] = 'null';
+        }
         return [
+            'type' => $types,
             'items' => $this->items->toArray()
         ];
+    }
+
+    public function applyDiscriminatorData($actualData)
+    {
+        $singleItem = current($actualData);
+        if(isset($singleItem[$this->name])) {
+            $this->items->applyDiscriminatorData(current($singleItem[$this->name]));
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace Mmal\OpenapiValidator\Tests;
 use Mmal\OpenapiValidator\Validator;
 use PHPUnit\Framework\TestCase;
 
-class ArrayTest extends TestCase
+class ArrayValidatorTest extends TestCase
 {
     protected function getTestedClass(): Validator
     {
@@ -20,6 +20,15 @@ class ArrayTest extends TestCase
         $validator = $this->getTestedClass();
 
         $error = $validator->validate('getBooksList', 200, ['tags' => [123]]);
+
+        $this->assertTrue($error->hasErrors());
+    }
+
+    public function testArrayCannotBeNull()
+    {
+        $validator = $this->getTestedClass();
+
+        $error = $validator->validate('getBooksList', 200, ['tags' => null]);
 
         $this->assertTrue($error->hasErrors());
     }

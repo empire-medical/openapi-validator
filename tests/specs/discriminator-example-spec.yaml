@@ -1,0 +1,44 @@
+info:
+
+paths:
+  /v1/books:
+    get:
+      operationId: getBooks
+      responses:
+        '200':
+          description: Fetch list of books
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/object1'
+                  - $ref: '#/components/schemas/object2'
+                discriminator:
+                  propertyName: type
+                  mapping:
+                    obj1: '#/components/schemas/object1'
+                    obj2: '#/components/schemas/object2'
+components:
+  schemas:
+    object1:
+      type: object
+      required:
+        - tag
+        - type
+      properties:
+        type:
+          type: string
+        tag:
+          type: string
+          example: "foo"
+    object2:
+      type: object
+      required:
+        - name
+        - type
+      properties:
+        type:
+          type: string
+        name:
+          type: string
+openapi: 3.0.0

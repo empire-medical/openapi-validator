@@ -55,4 +55,8 @@ class ScalarProperty implements PropertyInterface
     {
         $this->name = $name;
     }
+
+    public function applyDiscriminatorData($actualData)
+    {
+    }
 }

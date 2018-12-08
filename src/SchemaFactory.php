@@ -29,7 +29,10 @@ class SchemaFactory
                 $schemas[] = $this->fromArray($row);
             }
 
-            return new AllOfSchema($schemas, $name ?? '');
+            return new AllOfSchema(
+                $schemas,
+                $name ?? ''
+            );
         }
         if (isset($data['anyOf'])) {
             $schemas = [];
@@ -37,7 +40,18 @@ class SchemaFactory
                 $schemas[] = $this->fromArray($row);
             }
 
-            return new AnyOfSchema($schemas, $name ?? '');
+            $discriminatorMapping = $data['discriminator']['mapping'] ?? [];
+            $discriminatorMappingDereferenced = [];
+            foreach($discriminatorMapping as $key => $ref) {
+                $discriminatorMappingDereferenced[$key] = $this->fromArray($this->referenceResolver->resolve($ref));
+            }
+
+            return new AnyOfSchema(
+                $schemas,
+                $name ?? '',
+                $data['discriminator']['propertyName'] ?? null,
+                $discriminatorMappingDereferenced
+            );
         }
         if (isset($data['$ref'])) {
             $data = $this->referenceResolver->resolve($data['$ref']);
@@ -51,7 +65,7 @@ class SchemaFactory
             return new ObjectSchema($properties, $data['required'] ?? [], $name ?? '', $data['nullable'] ?? false);
         }
         if ($data['type'] === 'array') {
-            return new ArrayProperty($name ?? '', $this->fromArray($data['items']));
+            return new ArrayProperty($name ?? '', $this->fromArray($data['items']), $data['nullable'] ?? false);
         }
 
         return new ScalarProperty($data['type'], $name ?? '', $data['nullable'] ?? false);

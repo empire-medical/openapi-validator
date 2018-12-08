@@ -27,6 +27,8 @@ class Validator
             ->getOperationById($operationId)
             ->getSchemaByResponse($statusCode);
 
+        $schema->applyDiscriminatorData($responseData);
+
         $dataValidator = $this->getDataValidator();
 
         return $dataValidator->validate($responseData, $schema);

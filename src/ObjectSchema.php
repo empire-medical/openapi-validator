@@ -52,4 +52,15 @@ class ObjectSchema implements PropertyInterface
             'required' => $this->required,
         ];
     }
+
+    public function applyDiscriminatorData($actualData)
+    {
+        foreach ($this->properties as $property) {
+            if (isset($actualData[$property->getName()])) {
+                $property->applyDiscriminatorData($actualData[$property->getName()]);
+            }
+        }
+    }
+
+
 }
