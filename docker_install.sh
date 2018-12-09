@@ -5,7 +5,7 @@ php -r "if (hash_file('sha384', 'composer-setup.php') === '93b54496392c062774670
 php composer-setup.php
 php -r "unlink('composer-setup.php');"
 apt-get update
-apt-get install software-properties-common
+apt-get -y install software-properties-common
 add-apt-repository universe
 apt-get update
-apt-get install php-zip
+apt-get -y install php-zip
