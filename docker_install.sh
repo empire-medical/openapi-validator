@@ -6,6 +6,6 @@ php composer-setup.php
 php -r "unlink('composer-setup.php');"
 apt-get update
 apt-get -y install software-properties-common
-add-apt-repository universe
+add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
 apt-get update
 apt-get -y install php-zip
