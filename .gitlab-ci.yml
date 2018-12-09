@@ -1,5 +1,5 @@
 before_script:
-  - bash docker_install.sh > /dev/null
+  - bash docker_install.sh
 
 test:7.1:
     image: php:7.1
