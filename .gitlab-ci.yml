@@ -3,7 +3,7 @@ before_script:
 
 analyse:
   image: phpstan/phpstan
-  before_script: ~
+  before_script: []
   script:
     - analyse /app/src --level=7
 
