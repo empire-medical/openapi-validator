@@ -2,9 +2,10 @@ before_script:
   - bash docker_install.sh
 
 analyse:
-  image: edbizarro/gitlab-ci-pipeline-php:7.0
+  image: phpstan/phpstan
+  before_script: ~
   script:
-    - docker run --rm -v $(pwd):/app phpstan/phpstan analyse /app/src --level=7
+    - analyse /app/src --level=7s
 
 test:7.2:
     image: edbizarro/gitlab-ci-pipeline-php:7.2
