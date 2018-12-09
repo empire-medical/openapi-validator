@@ -2,14 +2,14 @@ before_script:
   - bash docker_install.sh
 
 test:7.1:
-    image: php:7.1
+    image: edbizarro/gitlab-ci-pipeline-php:7.1
     stage: test
     script:
       - make build
       - make test
 
 test:7.0:
-    image: php:7.0
+    image: edbizarro/gitlab-ci-pipeline-php:7.0
     stage: test
     script:
       - make build
