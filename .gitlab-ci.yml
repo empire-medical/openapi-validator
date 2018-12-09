@@ -5,7 +5,7 @@ analyse:
   image: edbizarro/gitlab-ci-pipeline-php:7.1
   script:
     - composer require --dev phpstan/phpstan
-    - vendor/bin/phpstan analyse src tests --level=7
+    - vendor/bin/phpstan analyse src --level=7
 
 test:7.2:
     image: edbizarro/gitlab-ci-pipeline-php:7.2
