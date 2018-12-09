@@ -5,7 +5,7 @@ analyse:
   image: phpstan/phpstan
   before_script: ~
   script:
-    - analyse /app/src --level=7s
+    - analyse /app/src --level=7
 
 test:7.2:
     image: edbizarro/gitlab-ci-pipeline-php:7.2
