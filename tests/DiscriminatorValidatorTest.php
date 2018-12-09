@@ -6,7 +6,7 @@ namespace Mmal\OpenapiValidator\Tests;
 
 
 use Mmal\OpenapiValidator\Validator;
-use PHPStan\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class DiscriminatorValidatorTest extends TestCase
 {

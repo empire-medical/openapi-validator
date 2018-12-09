@@ -8,7 +8,7 @@ namespace Mmal\OpenapiValidator\Tests;
 use Mmal\OpenapiValidator\Exception\OperationNotFoundException;
 use Mmal\OpenapiValidator\Exception\ResponseNotFoundException;
 use Mmal\OpenapiValidator\Validator;
-use PHPStan\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ErrorHandlingTest extends TestCase
 {
