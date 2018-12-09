@@ -6,11 +6,9 @@
 - Support for anyOf
 - Support for nullable
 - Support for discriminator
-- Proper error handle: operation not found etc.
-- Clean up and refactor
-- Check tests with mutator
-- Check Json guard license - MIT jest ok
-- Add license - MIT dodane
+- Proper error handle: operation not found etc. (WIP)
+- Clean up and refactor (WIP)
+- Check tests with mutator 
 - Add CI
 - Add phan
 

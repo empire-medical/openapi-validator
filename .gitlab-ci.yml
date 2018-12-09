@@ -1,0 +1,6 @@
+test:7.1:
+    image: php:7.1
+    stage: test
+    script:
+      - make buld
+      - make test
