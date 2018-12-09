@@ -42,7 +42,7 @@ class SchemaFactory
 
             $discriminatorMapping = $data['discriminator']['mapping'] ?? [];
             $discriminatorMappingDereferenced = [];
-            foreach($discriminatorMapping as $key => $ref) {
+            foreach ($discriminatorMapping as $key => $ref) {
                 $discriminatorMappingDereferenced[$key] = $this->fromArray($this->referenceResolver->resolve($ref));
             }
 

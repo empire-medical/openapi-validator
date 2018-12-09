@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator;
 
+use Mmal\OpenapiValidator\Exception\InvalidSchemaException;
+use Mmal\OpenapiValidator\Exception\OperationNotFoundException;
 use Mmal\OpenapiValidator\Reference\ReferenceResolver;
 use Mmal\OpenapiValidator\Response\Response;
 
@@ -24,6 +26,13 @@ class Spec
 
     public function getOperationById(string $operationId): OperationInterface
     {
+        if (!isset($this->operations[$operationId])) {
+            throw new OperationNotFoundException(sprintf(
+                'Operation %s not found',
+                $operationId
+            ));
+        }
+
         return $this->operations[$operationId];
     }
 
@@ -33,14 +42,18 @@ class Spec
         $refResolver = new ReferenceResolver([]);
         if (isset($data['components']['schemas'])) {
             foreach ($data['components']['schemas'] as $name => $schema) {
-                $refResolver->addRef('#/components/schemas/' . $name, $schema);
+                $refResolver->addRef('#/components/schemas/'.$name, $schema);
             }
+        }
+        if (!isset($data['paths'])) {
+            throw new InvalidSchemaException('Schema is missing paths, check schema is correct');
         }
         foreach ($data['paths'] as $urlTemplate => $methods) {
             foreach ($methods as $method => $operation) {
                 $operations[] = self::makeOperation($operation, $refResolver);
             }
         }
+
         return new self($operations);
     }
 
@@ -51,9 +64,36 @@ class Spec
     protected static function makeOperation(array $operation, ReferenceResolver $referenceResolver): Operation
     {
         $responses = [];
-        foreach ($operation['responses'] as $statusCode => $response) {
-            $responses[] = new Response((int)$statusCode, self::getSchema($response['content']['application/json']['schema'], $referenceResolver));
+        if (!isset($operation['operationId'])) {
+            throw new InvalidSchemaException('Missing operationId');
         }
+        if (!isset($operation['responses'])) {
+            throw new InvalidSchemaException(sprintf(
+                'Operation %s must have responses',
+                $operation['operationId']
+            ));
+        }
+        foreach ($operation['responses'] as $statusCode => $response) {
+            //@todo can be something else than application/json
+            if (!isset($response['content']['application/json']['schema'])) {
+                throw new InvalidSchemaException(
+                    sprintf(
+                        'Response %s for operation %s has no schema',
+                        $statusCode,
+                        $operation['operationId']
+                    )
+                );
+            }
+            $responses[] = new Response(
+                (int)$statusCode,
+                self::getSchema(
+                //@todo can be something else than application/json
+                    $response['content']['application/json']['schema'],
+                    $referenceResolver
+                )
+            );
+        }
+
         return new Operation($operation['operationId'], $responses);
     }
 

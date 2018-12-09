@@ -51,4 +51,16 @@ class DiscriminatorValidatorTest extends TestCase
 
         $this->assertTrue($error->hasErrors());
     }
+
+    public function testInvalidTypeDoesNotMatch2()
+    {
+        $validator = $this->getTestedClass();
+
+        $error = $validator->validate('getBooks', 200, [
+            'type' => 'obj1',
+            'name' => 'foo',
+        ]);
+
+        $this->assertTrue($error->hasErrors());
+    }
 }

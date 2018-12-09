@@ -19,18 +19,25 @@ class ReferenceResolver
     }
 
     /**
-     * @throws MissingReferenceException
+     * @throws \InvalidArgumentException
      */
     public function addRef(string $ref, array $schema)
     {
+        if (isset($this->schemas[$ref])) {
+            throw new \InvalidArgumentException(sprintf('Reference already registred %s', $ref));
+        }
         $this->schemas[$ref] = $schema;
     }
 
+    /**
+     * @throws MissingReferenceException
+     */
     public function resolve(string $ref): array
     {
         if (!array_key_exists($ref, $this->schemas)) {
             throw MissingReferenceException::fromRef($ref);
         }
+
         return $this->schemas[$ref];
     }
 }

@@ -5,6 +5,7 @@ namespace Mmal\OpenapiValidator;
 
 use Mmal\OpenapiValidator\DataValidator\DataValidatorInterface;
 use Mmal\OpenapiValidator\DataValidator\JsonGuardDataValidator;
+use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 class Validator
@@ -13,6 +14,7 @@ class Validator
     private $spec;
 
     /**
+     * @throws ParseException
      */
     public function __construct(string $schema)
     {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator;
 
+use Mmal\OpenapiValidator\Exception\ResponseNotFoundException;
 use Mmal\OpenapiValidator\Response\ResponseInterface;
 
 class Operation implements OperationInterface
@@ -28,6 +29,9 @@ class Operation implements OperationInterface
 
     public function getSchemaByResponse(int $statusCode): SchemaInterface
     {
+        if (!isset($this->responses[$statusCode])) {
+            throw new ResponseNotFoundException();
+        }
         $response = $this->responses[$statusCode];
 
         return $response->getSchema();
