@@ -4,7 +4,7 @@ before_script:
 analyse:
   stage: analyse
   script:
-    - docker run --rm -v $(pwd):/app phpstan/phpstan analyse /app/src
+    - make build
 
 test:7.2:
     image: edbizarro/gitlab-ci-pipeline-php:7.2
