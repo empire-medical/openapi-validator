@@ -2,9 +2,9 @@ before_script:
   - bash docker_install.sh
 
 analyse:
-  stage: analyse
-  script:
-    - make build
+    stage: analyse
+    script:
+      - make build
 
 test:7.2:
     image: edbizarro/gitlab-ci-pipeline-php:7.2
