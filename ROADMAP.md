@@ -8,10 +8,10 @@
 - Support for discriminator
 - Proper error handle: operation not found etc. (WIP)
 - Clean up and refactor (WIP)
-- Check tests with mutator 
 - Add Readme
-- Add CI
-- Add phan
+- Add CI - done
+- Better exception structure
 
 ##1.1
+- Add phan
 - Support for format

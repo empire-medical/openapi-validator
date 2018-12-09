@@ -23,7 +23,7 @@ class JsonGuardDataValidator implements DataValidatorInterface
         $actualDataStd = json_decode($encodedActualData);
         $encodedSchema = json_encode($schema->toArray());
         if (!is_string($encodedSchema)) {
-            throw new \Exception('Schema data provided');
+            throw new \Exception('Invalid schema provided');
         }
         $schemaStd = json_decode($encodedSchema);
         $validator->validate(
