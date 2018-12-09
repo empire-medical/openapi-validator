@@ -2,10 +2,10 @@ before_script:
   - bash docker_install.sh
 
 analyse:
-  image: phpstan/phpstan
-  before_script: []
+  image: edbizarro/gitlab-ci-pipeline-php:7.1
   script:
-    - analyse /app/src --level=7
+    - composer require --dev phpstan/phpstan
+    - vendor/bin/phpstan analyse src tests
 
 test:7.2:
     image: edbizarro/gitlab-ci-pipeline-php:7.2
