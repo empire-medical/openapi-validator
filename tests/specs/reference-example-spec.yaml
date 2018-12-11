@@ -45,6 +45,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/nestedObj"
+  /v4/books:
+    get:
+      operationId: responseAsRef
+      responses:
+        '200':
+          $ref: '#/components/responses/someResponse'
 components:
   schemas:
     nestedObj:
@@ -62,4 +68,16 @@ components:
       properties:
         nested:
           $ref: "#/components/schemas/nestedObj"
+  responses:
+    someResponse:
+      description: "200 response"
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - name
+            properties:
+              name:
+                type: string
 openapi: 3.0.0

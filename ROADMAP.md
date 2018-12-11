@@ -1,16 +1,18 @@
 ##1.0
-- Support for array
-- Support for nested properties
+- Support for array - done
+- Support for nested properties - done
 - Support for references (uzupelnic)
-- Support for allOf
-- Support for anyOf
-- Support for nullable
-- Support for discriminator
+- Support for allOf - done
+- Support for anyOf - done
+- Support for nullable - done
+- Support for discriminator - sprawdzic nested
 - Proper error handle: operation not found etc. (WIP)
 - Clean up and refactor (WIP)
+- Convert types: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#data-types
 - Add Readme
 - Add CI - done
 - Better exception structure
+- Responses ref 
 
 ##1.1
 - Add phan

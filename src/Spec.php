@@ -45,6 +45,11 @@ class Spec
                 $refResolver->addRef('#/components/schemas/'.$name, $schema);
             }
         }
+        if (isset($data['components']['responses'])) {
+            foreach ($data['components']['responses'] as $name => $schema) {
+                $refResolver->addRef('#/components/responses/'.$name, $schema);
+            }
+        }
         if (!isset($data['paths'])) {
             throw new InvalidSchemaException('Schema is missing paths, check schema is correct');
         }
@@ -74,7 +79,11 @@ class Spec
             ));
         }
         foreach ($operation['responses'] as $statusCode => $response) {
-            //@todo can be something else than application/json
+            $responseSchemaRaw = null;
+            if (isset($response['$ref'])) {
+                $response = $referenceResolver->resolve($response['$ref']);
+            }
+
             if (!isset($response['content']['application/json']['schema'])) {
                 throw new InvalidSchemaException(
                     sprintf(
@@ -84,11 +93,13 @@ class Spec
                     )
                 );
             }
+            $responseSchemaRaw = $response['content']['application/json']['schema'];
+
             $responses[] = new Response(
                 (int)$statusCode,
                 self::getSchema(
                 //@todo can be something else than application/json
-                    $response['content']['application/json']['schema'],
+                    $responseSchemaRaw,
                     $referenceResolver
                 )
             );

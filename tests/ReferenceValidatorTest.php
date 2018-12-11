@@ -108,6 +108,24 @@ class ReferenceValidatorTest extends TestCase
         $this->assertTrue($error->hasErrors());
     }
 
+    public function testReferedResponseValid()
+    {
+        $validator = $this->getTestedClass();
+
+        $error = $validator->validate('responseAsRef', 200, ['name' => 'test']);
+
+        $this->assertFalse($error->hasErrors());
+    }
+
+    public function testReferedResponseInValid()
+    {
+        $validator = $this->getTestedClass();
+
+        $error = $validator->validate('responseAsRef', 200, ['foo' => 'test']);
+
+        $this->assertTrue($error->hasErrors());
+    }
+
     public function testMissingRef()
     {
         $this->expectException(MissingReferenceException::class);
