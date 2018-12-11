@@ -45,6 +45,15 @@ class AllOfValidatorTest extends TestCase
         $this->assertTrue($error->hasErrors());
     }
 
+    public function testAllowsNull()
+    {
+        $validator = $this->getTestedClass();
+
+        $error = $validator->validate('getBooks2', 200, ['foo' => null]);
+
+        $this->assertFalse($error->hasErrors(), $error->__toString());
+    }
+
     protected function getTestedClass(): Validator
     {
         $schema = file_get_contents(__DIR__.'/specs/allof-example-spec.yaml');

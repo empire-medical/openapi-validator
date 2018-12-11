@@ -25,4 +25,34 @@ paths:
                     properties:
                       length:
                         type: integer
+  /v2/books:
+      get:
+        operationId: getBooks2
+        responses:
+          '200':
+            description: Fetch list of books
+            content:
+              application/json:
+                schema:
+                  type: object
+                  required:
+                  - foo
+                  properties:
+                    foo:
+                      nullable: true
+                      allOf:
+                        -
+                          type: object
+                          required:
+                            - name
+                          properties:
+                            name:
+                              type: string
+                        -
+                          type: object
+                          required:
+                            - length
+                          properties:
+                            length:
+                              type: integer
 openapi: 3.0.0
