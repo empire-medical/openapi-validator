@@ -23,6 +23,9 @@ class AnyOfSchema implements PropertyInterface
     /** @var mixed */
     private $discriminatorValue;
 
+    /** @var boolean */
+    private $nullable;
+
     public function getName(): string
     {
         return $this->name;
@@ -80,5 +83,10 @@ class AnyOfSchema implements PropertyInterface
     {
         return $this->discriminatorField !== null &&
             !empty($this->discriminatorMapping);
+    }
+
+    public function makeNullable()
+    {
+        $this->nullable = true;
     }
 }

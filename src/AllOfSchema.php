@@ -14,6 +14,9 @@ class AllOfSchema implements PropertyInterface
     /** @var string */
     private $name;
 
+    /** @var bool */
+    private $nullable = false;
+
     public function getName(): string
     {
         return $this->name;
@@ -23,10 +26,17 @@ class AllOfSchema implements PropertyInterface
      */
     public function __construct(
         array $innerSchemas,
-        string $name = ''
+        string $name = '',
+        bool $nullable = false
     ) {
         $this->innerSchemas = $innerSchemas;
         $this->name = $name;
+        $this->nullable = $nullable;
+        if($this->nullable === true) {
+            foreach ($this->innerSchemas as $schema) {
+                $schema->makeNullable();
+            }
+        }
     }
 
     public function toArray(): array
@@ -40,5 +50,10 @@ class AllOfSchema implements PropertyInterface
 
     public function applyDiscriminatorData($actualData)
     {
+    }
+
+    public function makeNullable()
+    {
+        $this->nullable = true;
     }
 }

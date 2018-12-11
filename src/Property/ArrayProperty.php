@@ -50,4 +50,9 @@ class ArrayProperty implements PropertyInterface
             $this->items->applyDiscriminatorData(current($singleItem[$this->name]));
         }
     }
+
+    public function makeNullable()
+    {
+        $this->nullable = true;
+    }
 }

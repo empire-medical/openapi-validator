@@ -34,7 +34,8 @@ class SchemaFactory
 
             return new AllOfSchema(
                 $schemas,
-                $name ?? ''
+                $name ?? '',
+                $data['nullable'] ?? false
             );
         }
         if (isset($data['anyOf'])) {

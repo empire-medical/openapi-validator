@@ -16,4 +16,7 @@ class EmptySchema implements SchemaInterface
     {
     }
 
+    public function makeNullable()
+    {
+    }
 }

@@ -59,4 +59,9 @@ class ScalarProperty implements PropertyInterface
     public function applyDiscriminatorData($actualData)
     {
     }
+
+    public function makeNullable()
+    {
+        $this->nullable = true;
+    }
 }

@@ -62,5 +62,8 @@ class ObjectSchema implements PropertyInterface
         }
     }
 
-
+    public function makeNullable()
+    {
+        $this->nullable = true;
+    }
 }
