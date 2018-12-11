@@ -23,6 +23,9 @@ class SchemaFactory
 
     public function fromArray(array $data, string $name = null)
     {
+        if (empty($data)) {
+            return new EmptySchema();
+        }
         if (isset($data['allOf'])) {
             $schemas = [];
             foreach ($data['allOf'] as $row) {

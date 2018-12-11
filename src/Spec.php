@@ -83,17 +83,24 @@ class Spec
             if (isset($response['$ref'])) {
                 $response = $referenceResolver->resolve($response['$ref']);
             }
+            $allowNoResponse = $statusCode == 204;
 
             if (!isset($response['content']['application/json']['schema'])) {
-                throw new InvalidSchemaException(
-                    sprintf(
-                        'Response %s for operation %s has no schema',
-                        $statusCode,
-                        $operation['operationId']
-                    )
-                );
+                if ($allowNoResponse) {
+                    $responseSchemaRaw = [];
+                } else {
+                    throw new InvalidSchemaException(
+                        sprintf(
+                            'Response %s for operation %s has no schema',
+                            $statusCode,
+                            $operation['operationId']
+                        )
+                    );
+                }
+
+            } else {
+                $responseSchemaRaw = $response['content']['application/json']['schema'];
             }
-            $responseSchemaRaw = $response['content']['application/json']['schema'];
 
             $responses[] = new Response(
                 (int)$statusCode,

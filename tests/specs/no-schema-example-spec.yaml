@@ -1,0 +1,10 @@
+info:
+
+paths:
+  /books:
+    post:
+      operationId: getBooks
+      responses:
+        '204':
+          description: accepted
+openapi: 3.0.0
