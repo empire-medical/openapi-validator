@@ -7,8 +7,9 @@ namespace Mmal\OpenapiValidator\Tests;
 use Mmal\OpenapiValidator\Reference\MissingReferenceException;
 use Mmal\OpenapiValidator\Validator;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Yaml\Yaml;
 
-class AllOfValidatorTest extends TestCase
+class AllOfValidatorTest extends BaseTestCase
 {
     public function testHasAllRequiredProperties()
     {
@@ -57,6 +58,8 @@ class AllOfValidatorTest extends TestCase
     protected function getTestedClass(): Validator
     {
         $schema = file_get_contents(__DIR__.'/specs/allof-example-spec.yaml');
-        return new Validator($schema);
+
+        return $this->getInstance($schema);
     }
+
 }

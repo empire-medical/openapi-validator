@@ -10,12 +10,12 @@ use Mmal\OpenapiValidator\Exception\ResponseNotFoundException;
 use Mmal\OpenapiValidator\Validator;
 use PHPUnit\Framework\TestCase;
 
-class ErrorHandlingTest extends TestCase
+class ErrorHandlingTest extends BaseTestCase
 {
     protected function getTestedClass(): Validator
     {
         $schema = file_get_contents(__DIR__.'/specs/simple-example-spec.yaml');
-        return new Validator($schema);
+        return $this->getInstance($schema);
     }
 
     public function testErrorOnOperationNotFound()

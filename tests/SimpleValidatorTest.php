@@ -6,7 +6,7 @@ namespace Mmal\OpenapiValidator\Tests;
 use Mmal\OpenapiValidator\Validator;
 use PHPUnit\Framework\TestCase;
 
-class SimpleValidatorTest extends TestCase
+class SimpleValidatorTest extends BaseTestCase
 {
     public function testShouldReturnErrorOnInvalidSchema()
     {
@@ -75,6 +75,6 @@ class SimpleValidatorTest extends TestCase
     protected function getTestedClass(): Validator
     {
         $schema = file_get_contents(__DIR__.'/specs/simple-example-spec.yaml');
-        return new Validator($schema);
+        return $this->getInstance($schema);
     }
 }

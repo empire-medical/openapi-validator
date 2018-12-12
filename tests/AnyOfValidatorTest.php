@@ -8,7 +8,7 @@ use Mmal\OpenapiValidator\Reference\MissingReferenceException;
 use Mmal\OpenapiValidator\Validator;
 use PHPUnit\Framework\TestCase;
 
-class AnyOfValidatorTest extends TestCase
+class AnyOfValidatorTest extends BaseTestCase
 {
     public function testIsValidAgainstOne()
     {
@@ -46,6 +46,6 @@ class AnyOfValidatorTest extends TestCase
     protected function getTestedClass(): Validator
     {
         $schema = file_get_contents(__DIR__.'/specs/anyof-example-spec.yaml');
-        return new Validator($schema);
+        return $this->getInstance($schema);
     }
 }

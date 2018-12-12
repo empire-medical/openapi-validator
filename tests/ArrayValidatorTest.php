@@ -7,12 +7,12 @@ namespace Mmal\OpenapiValidator\Tests;
 use Mmal\OpenapiValidator\Validator;
 use PHPUnit\Framework\TestCase;
 
-class ArrayValidatorTest extends TestCase
+class ArrayValidatorTest extends BaseTestCase
 {
     protected function getTestedClass(): Validator
     {
         $schema = file_get_contents(__DIR__.'/specs/array-example-spec.yaml');
-        return new Validator($schema);
+        return $this->getInstance($schema);
     }
 
     public function testArrayScalarItemHasInvalidType()

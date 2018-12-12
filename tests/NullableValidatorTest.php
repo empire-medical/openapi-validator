@@ -6,7 +6,7 @@ namespace Mmal\OpenapiValidator\Tests;
 use Mmal\OpenapiValidator\Validator;
 use PHPUnit\Framework\TestCase;
 
-class NullableValidatorTest extends TestCase
+class NullableValidatorTest extends BaseTestCase
 {
     public function testAcceptNull()
     {
@@ -54,6 +54,6 @@ class NullableValidatorTest extends TestCase
     protected function getTestedClass(): Validator
     {
         $schema = file_get_contents(__DIR__.'/specs/nullable-example-spec.yaml');
-        return new Validator($schema);
+        return $this->getInstance($schema);
     }
 }

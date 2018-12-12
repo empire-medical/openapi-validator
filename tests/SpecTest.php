@@ -11,7 +11,7 @@ use Mmal\OpenapiValidator\Spec;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Yaml;
 
-class SpecTest extends TestCase
+class SpecTest extends BaseTestCase
 {
     public function testCanInstantiate()
     {

@@ -8,12 +8,12 @@ namespace Mmal\OpenapiValidator\Tests;
 use Mmal\OpenapiValidator\Validator;
 use PHPUnit\Framework\TestCase;
 
-class DiscriminatorValidatorTest extends TestCase
+class DiscriminatorValidatorTest extends BaseTestCase
 {
     protected function getTestedClass(): Validator
     {
         $schema = file_get_contents(__DIR__.'/specs/discriminator-example-spec.yaml');
-        return new Validator($schema);
+        return $this->getInstance($schema);
     }
 
     public function testValidObject1()

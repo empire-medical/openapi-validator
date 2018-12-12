@@ -7,7 +7,7 @@ namespace Mmal\OpenapiValidator\Tests;
 use Mmal\OpenapiValidator\Validator;
 use PHPUnit\Framework\TestCase;
 
-class ObjectValidatorTest extends TestCase
+class ObjectValidatorTest extends BaseTestCase
 {
     public function testNestedObjectNotRequired()
     {
@@ -48,6 +48,6 @@ class ObjectValidatorTest extends TestCase
     protected function getTestedClass(): Validator
     {
         $schema = file_get_contents(__DIR__.'/specs/object-example-spec.yaml');
-        return new Validator($schema);
+        return $this->getInstance($schema);
     }
 }

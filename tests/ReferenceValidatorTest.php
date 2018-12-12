@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 //@todo references outside components
 //@todo nullable references
 
-class ReferenceValidatorTest extends TestCase
+class ReferenceValidatorTest extends BaseTestCase
 {
     public function testNestedObjectNotRequired()
     {
@@ -131,7 +131,7 @@ class ReferenceValidatorTest extends TestCase
         $this->expectException(MissingReferenceException::class);
 
         $schema = file_get_contents(__DIR__.'/specs/reference-missing-spec.yaml');
-        $validator =  new Validator($schema);
+        $validator = $this->getInstance($schema);
 
         $error = $validator->validate('missingRef', 200, [
             'tag' => 1
@@ -141,6 +141,6 @@ class ReferenceValidatorTest extends TestCase
     protected function getTestedClass(): Validator
     {
         $schema = file_get_contents(__DIR__.'/specs/reference-example-spec.yaml');
-        return new Validator($schema);
+        return $this->getInstance($schema);
     }
 }
