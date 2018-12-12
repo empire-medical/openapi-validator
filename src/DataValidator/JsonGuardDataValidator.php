@@ -12,7 +12,7 @@ use Mmal\OpenapiValidator\SchemaInterface;
 
 class JsonGuardDataValidator implements DataValidatorInterface
 {
-    public function validate(array $actualData, SchemaInterface $schema): ErrorInterface
+    public function validate($actualData, SchemaInterface $schema): ErrorInterface
     {
         $validator = new \JsonSchema\Validator();
 

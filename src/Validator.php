@@ -23,7 +23,7 @@ class Validator
     }
 
 
-    public function validate(string $operationId, int $statusCode, array $responseData)
+    public function validate(string $operationId, int $statusCode, $responseData)
     {
         $schema = $this->spec
             ->getOperationById($operationId)

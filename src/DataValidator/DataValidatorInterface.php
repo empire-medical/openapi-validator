@@ -7,5 +7,5 @@ use Mmal\OpenapiValidator\SchemaInterface;
 
 interface DataValidatorInterface
 {
-    public function validate(array $actualData, SchemaInterface $schema): ErrorInterface;
+    public function validate($actualData, SchemaInterface $schema): ErrorInterface;
 }

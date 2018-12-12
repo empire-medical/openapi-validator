@@ -19,7 +19,7 @@ class Error implements ErrorInterface
 
     /**
      */
-    public function __construct(string $message, SchemaInterface $expectedSchema, array $actualData)
+    public function __construct(string $message, SchemaInterface $expectedSchema, $actualData)
     {
         $this->message = $message;
         $this->expectedSchema = $expectedSchema;

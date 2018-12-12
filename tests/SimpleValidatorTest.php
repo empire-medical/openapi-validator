@@ -63,6 +63,15 @@ class SimpleValidatorTest extends TestCase
         $this->assertTrue($error->hasErrors());
     }
 
+    public function testHandleNullResponses()
+    {
+        $validator = $this->getTestedClass();
+
+        $errors = $validator->validate('getBooks', 200, null);
+
+        $this->assertTrue($errors->hasErrors());
+    }
+
     protected function getTestedClass(): Validator
     {
         $schema = file_get_contents(__DIR__.'/specs/simple-example-spec.yaml');
