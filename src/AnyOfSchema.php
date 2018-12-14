@@ -48,7 +48,7 @@ class AnyOfSchema extends AbstractProperty
             }
         } else {
             return [
-                'anyOf' => array_map(function (SchemaInterface $schema) {
+                $this->getKeyword() => array_map(function (SchemaInterface $schema) {
                     return $schema->toArray();
                 }, $this->innerSchemas),
             ];
@@ -73,5 +73,13 @@ class AnyOfSchema extends AbstractProperty
     {
         return $this->discriminatorField !== null &&
             !empty($this->discriminatorMapping);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getKeyword(): string
+    {
+        return 'anyOf';
     }
 }

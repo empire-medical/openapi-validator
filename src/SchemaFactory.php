@@ -45,10 +45,17 @@ class SchemaFactory
                 $schemas[] = $this->fromArray($row);
             }
 
+            $discriminatorMapping = $data['discriminator']['mapping'] ?? [];
+            $discriminatorMappingDereferenced = [];
+            foreach ($discriminatorMapping as $key => $ref) {
+                $discriminatorMappingDereferenced[$key] = $this->fromArray($this->referenceResolver->resolve($ref));
+            }
+
             return new OneOfSchema(
                 $schemas,
                 $name ?? '',
-                $data['nullable'] ?? false
+                $data['discriminator']['propertyName'] ?? null,
+                $discriminatorMappingDereferenced
             );
         }
         if (isset($data['anyOf'])) {

@@ -15,6 +15,7 @@
 - Add CI - done
 - Better exception structure
 - Responses ref 
+- OneOf should support discriminator
 
 ##1.1
 - Add phan
