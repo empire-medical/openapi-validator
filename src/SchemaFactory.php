@@ -6,6 +6,7 @@ namespace Mmal\OpenapiValidator;
 
 use Mmal\OpenapiValidator\Property\ArrayProperty;
 use Mmal\OpenapiValidator\Property\ScalarProperty;
+use Mmal\OpenapiValidator\Property\UnknownTypeProperty;
 use Mmal\OpenapiValidator\Reference\ReferenceResolver;
 
 class SchemaFactory
@@ -38,6 +39,18 @@ class SchemaFactory
                 $data['nullable'] ?? false
             );
         }
+        if (isset($data['oneOf'])) {
+            $schemas = [];
+            foreach ($data['oneOf'] as $row) {
+                $schemas[] = $this->fromArray($row);
+            }
+
+            return new OneOfSchema(
+                $schemas,
+                $name ?? '',
+                $data['nullable'] ?? false
+            );
+        }
         if (isset($data['anyOf'])) {
             $schemas = [];
             foreach ($data['anyOf'] as $row) {
@@ -60,18 +73,24 @@ class SchemaFactory
         if (isset($data['$ref'])) {
             $data = $this->referenceResolver->resolve($data['$ref']);
         }
-        if ($data['type'] === 'object') {
-            $properties = [];
-            foreach ($data['properties'] as $nameOfProperty => $property) {
-                $properties[] = $this->fromArray($property, $nameOfProperty);
+        if (isset($data['type'])) {
+            if ($data['type'] === 'object') {
+                $properties = [];
+                if (isset($data['properties'])) {
+                    foreach ($data['properties'] as $nameOfProperty => $property) {
+                        $properties[] = $this->fromArray($property, $nameOfProperty);
+                    }
+                }
+
+                return new ObjectSchema($properties, $data['required'] ?? [], $name ?? '', $data['nullable'] ?? false);
+            }
+            if ($data['type'] === 'array') {
+                return new ArrayProperty($name ?? '', $this->fromArray($data['items']), $data['nullable'] ?? false);
             }
 
-            return new ObjectSchema($properties, $data['required'] ?? [], $name ?? '', $data['nullable'] ?? false);
-        }
-        if ($data['type'] === 'array') {
-            return new ArrayProperty($name ?? '', $this->fromArray($data['items']), $data['nullable'] ?? false);
+            return new ScalarProperty($data['type'], $name ?? '', $data['nullable'] ?? false);
         }
 
-        return new ScalarProperty($data['type'], $name ?? '', $data['nullable'] ?? false);
+        return new UnknownTypeProperty($data['nullable'] ?? false);
     }
 }

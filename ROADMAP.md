@@ -8,6 +8,8 @@
 - Support for discriminator - sprawdzic nested
 - Proper error handle: operation not found etc. (WIP)
 - Clean up and refactor (WIP)
+- Support for oneOf - done
+- Support for not 
 - Convert types: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#data-types
 - Add Readme
 - Add CI - done

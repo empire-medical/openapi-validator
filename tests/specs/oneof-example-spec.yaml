@@ -1,0 +1,28 @@
+info:
+
+paths:
+  /books:
+    get:
+      operationId: getBooks
+      responses:
+        '200':
+          description: Fetch list of books
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  -
+                    type: object
+                    required:
+                      - name
+                    properties:
+                      name:
+                        type: string
+                  -
+                    type: object
+                    required:
+                      - foo
+                    properties:
+                      foo:
+                        type: integer
+openapi: 3.0.0
