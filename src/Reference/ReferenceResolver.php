@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator\Reference;
 
+use Mmal\OpenapiValidator\Exception\MissingReferenceException;
+
 class ReferenceResolver
 {
     /** @var array */
@@ -24,7 +26,7 @@ class ReferenceResolver
     public function addRef(string $ref, array $schema)
     {
         if (isset($this->schemas[$ref])) {
-            throw new \InvalidArgumentException(sprintf('Reference already registred %s', $ref));
+            throw new \InvalidArgumentException(sprintf('Reference already registered %s', $ref));
         }
         $this->schemas[$ref] = $schema;
     }

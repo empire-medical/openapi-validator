@@ -30,7 +30,7 @@ class Operation implements OperationInterface
     public function getSchemaByResponse(int $statusCode): SchemaInterface
     {
         if (!isset($this->responses[$statusCode])) {
-            throw new ResponseNotFoundException();
+            throw new ResponseNotFoundException(sprintf('Response not found by %s status code', $statusCode));
         }
         $response = $this->responses[$statusCode];
 

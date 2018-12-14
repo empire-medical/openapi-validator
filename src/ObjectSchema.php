@@ -4,26 +4,16 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator;
 
+use Mmal\OpenapiValidator\Property\AbstractProperty;
 use Mmal\OpenapiValidator\Property\PropertyInterface;
 
-class ObjectSchema implements PropertyInterface
+class ObjectSchema extends AbstractProperty
 {
     /** @var array|PropertyInterface[] */
     private $properties = [];
 
     /** @var array|string[] */
     private $required = [];
-
-    /** @var string */
-    private $name;
-
-    /** @var bool */
-    private $nullable;
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
 
     /**
      */
@@ -42,9 +32,7 @@ class ObjectSchema implements PropertyInterface
             $properties[$property->getName()] = $property->toArray();
         }
         $types = ['object'];
-        if ($this->nullable === true) {
-            $types[] = 'null';
-        }
+        $types = $this->normalizeNullable($types);
 
         return [
             'type' => $types,
@@ -60,10 +48,5 @@ class ObjectSchema implements PropertyInterface
                 $property->applyDiscriminatorData($actualData[$property->getName()]);
             }
         }
-    }
-
-    public function makeNullable()
-    {
-        $this->nullable = true;
     }
 }

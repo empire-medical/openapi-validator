@@ -6,16 +6,10 @@ namespace Mmal\OpenapiValidator\Property;
 
 use Mmal\OpenapiValidator\SchemaInterface;
 
-class ArrayProperty implements PropertyInterface
+class ArrayProperty extends AbstractProperty
 {
-    /** @var string */
-    private $name;
-
     /** @var SchemaInterface */
     private $items;
-
-    /** @var bool */
-    private $nullable;
 
     /**
      */
@@ -26,20 +20,15 @@ class ArrayProperty implements PropertyInterface
         $this->nullable = $nullable;
     }
 
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
     public function toArray(): array
     {
         $types = ['array'];
-        if ($this->nullable === true) {
-            $types[] = 'null';
-        }
+        $types = $this->normalizeNullable($types);
+
         return [
             'type' => $types,
-            'items' => $this->items->toArray()
+            'items' => $this->items->toArray(),
+            'nullable' => $this->nullable
         ];
     }
 
@@ -49,10 +38,5 @@ class ArrayProperty implements PropertyInterface
         if(isset($singleItem[$this->name])) {
             $this->items->applyDiscriminatorData(current($singleItem[$this->name]));
         }
-    }
-
-    public function makeNullable()
-    {
-        $this->nullable = true;
     }
 }

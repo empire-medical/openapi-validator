@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace Mmal\OpenapiValidator\Reference;
+namespace Mmal\OpenapiValidator\Exception;
 
 class MissingReferenceException extends \Exception
 {

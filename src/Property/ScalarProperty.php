@@ -4,19 +4,13 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator\Property;
 
-class ScalarProperty implements PropertyInterface
+class ScalarProperty extends AbstractProperty
 {
-    /** @var string */
-    private $name;
-
     /** @var mixed */
     private $example;
 
     /** @var string */
     private $type;
-
-    /** @var bool */
-    private $nullable = false;
 
     /**
      */
@@ -32,17 +26,10 @@ class ScalarProperty implements PropertyInterface
         $this->example = $example;
     }
 
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
     public function toArray(): array
     {
         $types = [$this->type];
-        if ($this->nullable === true) {
-            $types[] = 'null';
-        }
+        $types = $this->normalizeNullable($types);
 
         return [
             'type' => $types,
@@ -58,10 +45,5 @@ class ScalarProperty implements PropertyInterface
 
     public function applyDiscriminatorData($actualData)
     {
-    }
-
-    public function makeNullable()
-    {
-        $this->nullable = true;
     }
 }

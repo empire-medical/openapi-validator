@@ -4,23 +4,13 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator;
 
+use Mmal\OpenapiValidator\Property\AbstractProperty;
 use Mmal\OpenapiValidator\Property\PropertyInterface;
 
-class AllOfSchema implements PropertyInterface
+class AllOfSchema extends AbstractProperty
 {
     /** @var array|PropertyInterface[] */
     protected $innerSchemas = [];
-
-    /** @var string */
-    private $name;
-
-    /** @var bool */
-    private $nullable = false;
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
 
     /**
      */
@@ -50,10 +40,5 @@ class AllOfSchema implements PropertyInterface
 
     public function applyDiscriminatorData($actualData)
     {
-    }
-
-    public function makeNullable()
-    {
-        $this->nullable = true;
     }
 }
