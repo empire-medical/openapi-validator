@@ -1,11 +1,11 @@
 ##1.0
 - Support for array - done
 - Support for nested properties - done
-- Support for references (uzupelnic)
+- Support for references (partly done)
 - Support for allOf - done
 - Support for anyOf - done
 - Support for nullable - done
-- Support for discriminator - sprawdzic nested
+- Support for discriminator - test nested
 - Proper error handle: operation not found etc. (WIP)
 - Clean up and refactor (WIP)
 - Support for oneOf - done
@@ -14,9 +14,9 @@
 - Add Readme
 - Add CI - done
 - Better exception structure
-- Responses ref 
-- OneOf should support discriminator
-
-##1.1
-- Add phan
+- Responses ref - done
+- OneOf should support discriminator - done
+- Support for formats other than application/json
 - Support for format
+- Add phan
+
