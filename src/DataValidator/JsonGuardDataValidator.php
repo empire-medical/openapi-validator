@@ -39,10 +39,11 @@ class JsonGuardDataValidator implements DataValidatorInterface
         foreach ($jsonGuardErrors as $jsonGuardError) {
             $collection->addError(new Error(
                 $jsonGuardError['message'],
-                $schema,
-                $actualData
+                $jsonGuardError['property'],
+                $jsonGuardError['constraint']
             ));
         }
+
 
         return $collection;
     }

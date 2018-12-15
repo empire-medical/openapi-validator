@@ -11,19 +11,19 @@ class Error implements ErrorInterface
     /** @var string */
     private $message;
 
-    /** @var SchemaInterface */
-    private $expectedSchema;
+    /** @var string */
+    private $property;
 
-    /** @var array */
-    private $actualData;
+    /** @var string */
+    private $constraint;
 
     /**
      */
-    public function __construct(string $message, SchemaInterface $expectedSchema, $actualData)
+    public function __construct(string $message, string $property, string $constraint)
     {
         $this->message = $message;
-        $this->expectedSchema = $expectedSchema;
-        $this->actualData = $actualData;
+        $this->property = $property;
+        $this->constraint = $constraint;
     }
 
 
@@ -35,9 +35,7 @@ class Error implements ErrorInterface
     public function __toString(): string
     {
         return $this->message.PHP_EOL.
-            'expected schema: '.PHP_EOL.
-            json_encode($this->expectedSchema->toArray()).PHP_EOL.
-            'given: '.PHP_EOL.
-            json_encode($this->actualData).PHP_EOL;
+            'property: '. $this->property.PHP_EOL.
+            'constraint: ' . $this->constraint.PHP_EOL;
     }
 }
