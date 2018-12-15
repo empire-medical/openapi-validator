@@ -1,4 +1,4 @@
-[]{
+{
   "name": "mmal/openapi-validator",
   "license": "proprietary",
   "description": "Validates data against provide openapi spec",
