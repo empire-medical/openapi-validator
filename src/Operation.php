@@ -27,14 +27,18 @@ class Operation implements OperationInterface
         }
     }
 
-    public function getSchemaByResponse(int $statusCode): SchemaInterface
+    public function getSchemaByResponse(int $statusCode, string $contentType): SchemaInterface
     {
         if (!isset($this->responses[$statusCode])) {
-            throw new ResponseNotFoundException(sprintf('Response not found by %s status code', $statusCode));
+            throw new ResponseNotFoundException(sprintf(
+                    'Response not found by %s status code and content type %s',
+                    $statusCode,
+                    $contentType)
+            );
         }
         $response = $this->responses[$statusCode];
 
-        return $response->getSchema();
+        return $response->getSchema($contentType);
     }
 
     public function getOperationId(): string

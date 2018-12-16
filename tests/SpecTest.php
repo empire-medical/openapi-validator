@@ -44,7 +44,7 @@ class SpecTest extends BaseTestCase
 
         $schema = $spec
             ->getOperationById('getBooks')
-            ->getSchemaByResponse(200);
+            ->getSchemaByResponse(200, 'application/json');
 
         $this->assertInstanceOf(ObjectSchema::class, $schema);
     }

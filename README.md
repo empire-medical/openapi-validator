@@ -2,10 +2,6 @@
 
 Validate data against openapi v3 spec [https://github.com/OAI/OpenAPI-Specification]
 
-##How
-
-Transform openapi spec into json schema and then uses justinrainbow/json-schema to validate it
-
 ##Requirements
 
 Your openapi spec has to be valid, You can use [https://github.com/wework/speccy] to check Your schema first
@@ -32,3 +28,7 @@ Examples in tests
 1. Support all openapi formats and types
 2. Support for not keyword
 3. Support formats other than application/json
+
+##How this workds?
+
+Transform openapi spec into json schema and then uses justinrainbow/json-schema to validate it

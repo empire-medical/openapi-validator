@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator\Response;
 
+use Mmal\OpenapiValidator\EmptySchema;
 use Mmal\OpenapiValidator\SchemaInterface;
 
 class Response implements ResponseInterface
@@ -11,15 +12,15 @@ class Response implements ResponseInterface
     /** @var int */
     private $statusCode;
 
-    /** @var SchemaInterface */
-    private $schema;
+    /** @var SchemaInterface[]|array */
+    private $schemas;
 
     /**
      */
-    public function __construct(int $statusCode, SchemaInterface $schema)
+    public function __construct(int $statusCode, array $schemas)
     {
         $this->statusCode = $statusCode;
-        $this->schema = $schema;
+        $this->schemas = $schemas;
     }
 
     public function getStatusCode(): int
@@ -27,8 +28,15 @@ class Response implements ResponseInterface
         return $this->statusCode;
     }
 
-    public function getSchema(): SchemaInterface
+    public function getSchema(string $contentType): SchemaInterface
     {
-        return $this->schema;
+        if (!isset($this->schemas[$contentType])) {
+            if ($this->statusCode == 204) {
+                return new EmptySchema();
+            }
+            throw new \InvalidArgumentException(sprintf('No defined schema for content-type %s', $contentType));
+        }
+
+        return $this->schemas[$contentType];
     }
 }

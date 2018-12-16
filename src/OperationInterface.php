@@ -6,5 +6,5 @@ interface OperationInterface
 {
     public function getOperationId(): string;
 
-    public function getSchemaByResponse(int $statusCode): SchemaInterface;
+    public function getSchemaByResponse(int $statusCode, string $contentType): SchemaInterface;
 }

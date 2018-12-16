@@ -10,8 +10,7 @@
 - Clean up and refactor (WIP)
 - Support for oneOf - done
 - Support for not 
-- Convert types: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#data-types
-- Add Readme
+- Add Readme - done
 - Add CI - done
 - Better exception structure
 - Responses ref - done

@@ -8,5 +8,5 @@ interface ResponseInterface
 {
     public function getStatusCode(): int;
 
-    public function getSchema(): SchemaInterface;
+    public function getSchema(string $contentType): SchemaInterface;
 }

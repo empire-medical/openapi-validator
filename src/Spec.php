@@ -85,7 +85,7 @@ class Spec
             }
             $allowNoResponse = $statusCode == 204;
 
-            if (!isset($response['content']['application/json']['schema'])) {
+            if (!isset($response['content']) || empty($response['content'])) {
                 if ($allowNoResponse) {
                     $responseSchemaRaw = [];
                 } else {
@@ -99,16 +99,20 @@ class Spec
                 }
 
             } else {
-                $responseSchemaRaw = $response['content']['application/json']['schema'];
+                $responseSchemaRaw = $response['content'];
+            }
+
+            $schemas = [];
+            foreach($responseSchemaRaw as $contentType => $rawSchema) {
+                $schemas[$contentType] = self::getSchema(
+                    $rawSchema['schema'],
+                    $referenceResolver
+                );
             }
 
             $responses[] = new Response(
                 (int)$statusCode,
-                self::getSchema(
-                //@todo can be something else than application/json
-                    $responseSchemaRaw,
-                    $referenceResolver
-                )
+                $schemas
             );
         }
 

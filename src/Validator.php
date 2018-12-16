@@ -17,11 +17,11 @@ class Validator
     }
 
 
-    public function validate(string $operationId, int $statusCode, $responseData)
+    public function validate(string $operationId, int $statusCode, $responseData, string $contentType = 'application/json')
     {
         $schema = $this->spec
             ->getOperationById($operationId)
-            ->getSchemaByResponse($statusCode);
+            ->getSchemaByResponse($statusCode, $contentType);
 
         $schema->applyDiscriminatorData($responseData);
 
