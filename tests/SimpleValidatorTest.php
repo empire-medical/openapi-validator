@@ -72,9 +72,29 @@ class SimpleValidatorTest extends BaseTestCase
         $this->assertTrue($errors->hasErrors());
     }
 
+    public function testDifferentContentType()
+    {
+        $validator = $this->getTestedClass();
+
+        $errors = $validator->validate('getBooks', 200, ['count' => 5], 'application/xml');
+
+        $this->assertFalse($errors->hasErrors());
+    }
+
+    public function testDifferentContentTypeInvalid()
+    {
+        $validator = $this->getTestedClass();
+
+        $errors = $validator->validate('getBooks', 200, ['count' => '5'], 'application/xml');
+
+        $this->assertTrue($errors->hasErrors());
+    }
+
+
     protected function getTestedClass(): Validator
     {
         $schema = file_get_contents(__DIR__.'/specs/simple-example-spec.yaml');
+
         return $this->getInstance($schema);
     }
 }

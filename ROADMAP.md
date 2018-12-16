@@ -15,7 +15,7 @@
 - Better exception structure
 - Responses ref - done
 - OneOf should support discriminator - done
-- Support for formats other than application/json
+- Support for formats other than application/json (WIP - tests)
 - Support for format
 - Add phan
 
