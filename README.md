@@ -29,6 +29,6 @@ Examples in tests
 2. Support for not keyword
 3. Support formats other than application/json
 
-##How this workds?
+##How this works?
 
 Transform openapi spec into json schema and then uses justinrainbow/json-schema to validate it
