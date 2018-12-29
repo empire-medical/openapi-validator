@@ -11,6 +11,8 @@ class ReferenceResolver
     /** @var array */
     private $schemas = [];
 
+    private $refCounters = [];
+
     /**
      */
     public function __construct(array $schemas)
@@ -36,9 +38,18 @@ class ReferenceResolver
      */
     public function resolve(string $ref): array
     {
+        if (isset($this->refCounters[$ref]) && $this->refCounters[$ref] > 100) {
+            return [];
+        }
+
         if (!array_key_exists($ref, $this->schemas)) {
             throw MissingReferenceException::fromRef($ref);
         }
+
+        if (!isset($this->refCounters[$ref])) {
+            $this->refCounters[$ref] = 0;
+        }
+        $this->refCounters[$ref]++;
 
         return $this->schemas[$ref];
     }

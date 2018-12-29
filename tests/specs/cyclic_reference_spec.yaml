@@ -1,0 +1,28 @@
+info:
+
+paths:
+  /v1/books:
+    get:
+      operationId: getBooks
+      responses:
+        '200':
+          description: list of books
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/myObj'
+
+
+components:
+  schemas:
+    myObj:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        parent:
+          $ref: '#/components/schemas/myObj'
+
+openapi: 3.0.0

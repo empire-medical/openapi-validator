@@ -20,7 +20,7 @@ abstract class AbstractProperty implements PropertyInterface
 
     public function getName(): string
     {
-        return $this->name;
+        return $this->name ? $this->name : '';
     }
 
     protected function normalizeNullable(array $types): array

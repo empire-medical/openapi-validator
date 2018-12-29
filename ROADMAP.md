@@ -11,6 +11,7 @@
 - Support for oneOf - done
 - Support for not 
 - Add Readme - done
+- Proper cyclic reference handling - TODO
 - Add CI - done
 - Better exception structure
 - Responses ref - done
