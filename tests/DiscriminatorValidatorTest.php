@@ -63,4 +63,46 @@ class DiscriminatorValidatorTest extends BaseTestCase
 
         $this->assertTrue($error->hasErrors());
     }
+
+    public function testValidNestedDiscrimanted()
+    {
+        $validator = $this->getTestedClass();
+
+        $error = $validator->validate('getBooksNested', 200, [
+            'class' => 'foo',
+            'subObj' => [
+                'type' => 'obj1',
+                'tag' => 'foo',
+            ]
+        ]);
+
+        $this->assertFalse($error->hasErrors());
+    }
+
+    public function testInValidNestedDiscrimanted()
+    {
+        $validator = $this->getTestedClass();
+
+        $error = $validator->validate('getBooksNested', 200, [
+            'class' => 'foo',
+            'subObj' => [
+                'type' => 'obj1',
+                'tag' => 4
+            ]
+        ]);
+
+        $this->assertTrue($error->hasErrors());
+    }
+
+    public function testValidNestedDiscrimantedOtherObject()
+    {
+        $validator = $this->getTestedClass();
+
+        $error = $validator->validate('getBooksNested', 200, [
+            'class' => 'bar',
+            'count' => 4
+        ]);
+
+        $this->assertFalse($error->hasErrors());
+    }
 }

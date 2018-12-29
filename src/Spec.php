@@ -38,18 +38,8 @@ class Spec
 
     public static function fromArray(array $data)
     {
-        $operations = [];
-        $refResolver = new ReferenceResolver([]);
-        if (isset($data['components']['schemas'])) {
-            foreach ($data['components']['schemas'] as $name => $schema) {
-                $refResolver->addRef('#/components/schemas/'.$name, $schema);
-            }
-        }
-        if (isset($data['components']['responses'])) {
-            foreach ($data['components']['responses'] as $name => $schema) {
-                $refResolver->addRef('#/components/responses/'.$name, $schema);
-            }
-        }
+        $refResolver = ReferenceResolver::fromData($data);
+
         if (!isset($data['paths'])) {
             throw new InvalidSchemaException('Schema is missing paths, check schema is correct');
         }

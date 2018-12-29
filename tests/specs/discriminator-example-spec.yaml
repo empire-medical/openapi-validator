@@ -18,8 +18,53 @@ paths:
                   mapping:
                     obj1: '#/components/schemas/object1'
                     obj2: '#/components/schemas/object2'
+  /v2/books:
+    get:
+      operationId: getBooksNested
+      responses:
+        '200':
+          description: fetch list of books
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/object3'
+                  - $ref: '#/components/schemas/object4'
+                discriminator:
+                  propertyName: class
+                  mapping:
+                    foo: '#/components/schemas/object3'
+                    bar: '#/components/schemas/object4'
+
 components:
   schemas:
+    object3:
+      type: object
+      required:
+        - class
+        - subObj
+      properties:
+        class:
+          type: string
+        subObj:
+          anyOf:
+            - $ref: '#/components/schemas/object1'
+            - $ref: '#/components/schemas/object2'
+          discriminator:
+            propertyName: type
+            mapping:
+              obj1: '#/components/schemas/object1'
+              obj2: '#/components/schemas/object2'
+    object4:
+      type: object
+      required:
+        - class
+        - count
+      properties:
+        class:
+          type: string
+        count:
+          type: integer
     object1:
       type: object
       required:
