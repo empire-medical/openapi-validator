@@ -36,7 +36,10 @@ class Spec
         return $this->operations[$operationId];
     }
 
-    public static function fromArray(array $data)
+    /**
+     * @throws InvalidSchemaException
+     */
+    public static function fromArray(array $data): Spec
     {
         $refResolver = ReferenceResolver::fromData($data);
 
@@ -52,10 +55,6 @@ class Spec
         return new self($operations);
     }
 
-    /**
-     * @param array $operation
-     * @return Operation
-     */
     protected static function makeOperation(array $operation, ReferenceResolver $referenceResolver): Operation
     {
         $responses = [];
@@ -68,6 +67,7 @@ class Spec
                 $operation['operationId']
             ));
         }
+
         foreach ($operation['responses'] as $statusCode => $response) {
             $responseSchemaRaw = null;
             if (isset($response['$ref'])) {
@@ -93,7 +93,16 @@ class Spec
             }
 
             $schemas = [];
-            foreach($responseSchemaRaw as $contentType => $rawSchema) {
+            foreach ($responseSchemaRaw as $contentType => $rawSchema) {
+                if (!isset($rawSchema['schema'])) {
+                    throw new InvalidSchemaException(
+                        sprintf(
+                            'Response %s for operation %s has no schema',
+                            $statusCode,
+                            $operation['operationId']
+                        )
+                    );
+                }
                 $schemas[$contentType] = self::getSchema(
                     $rawSchema['schema'],
                     $referenceResolver

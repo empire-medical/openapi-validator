@@ -95,7 +95,7 @@ class SchemaFactory
                 return new ArrayProperty($name ?? '', $this->fromArray($data['items']), $data['nullable'] ?? false);
             }
 
-            return new ScalarProperty($data['type'], $name ?? '', $data['nullable'] ?? false);
+            return new ScalarProperty($data['type'], $name ?? '', $data['nullable'] ?? false , $data['format'] ?? null);
         }
 
         return new UnknownTypeProperty($data['nullable'] ?? false);
