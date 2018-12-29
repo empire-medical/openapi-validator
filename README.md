@@ -25,9 +25,8 @@ Examples in tests
 
 ##TODO
 
-1. Support all openapi formats and types
+1. Support all openapi formats
 2. Support for not keyword
-3. Support formats other than application/json
 
 ##How this works?
 

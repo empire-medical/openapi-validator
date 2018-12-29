@@ -13,7 +13,7 @@
 - Add Readme - done
 - Proper cyclic reference handling - TODO
 - Add CI - done
-- Better exception structure
+- Better exception structure - TODO
 - Responses ref - done
 - OneOf should support discriminator - done
 - Support for formats other than application/json - done
