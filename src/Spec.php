@@ -42,6 +42,7 @@ class Spec
     public static function fromArray(array $data): Spec
     {
         $refResolver = ReferenceResolver::fromData($data);
+        $operations = [];
 
         if (!isset($data['paths'])) {
             throw new InvalidSchemaException('Schema is missing paths, check schema is correct');
@@ -73,9 +74,9 @@ class Spec
             if (isset($response['$ref'])) {
                 $response = $referenceResolver->resolve($response['$ref']);
             }
-            $allowNoResponse = $statusCode == 204;
 
             if (!isset($response['content']) || empty($response['content'])) {
+                $allowNoResponse = $statusCode == 204;
                 if ($allowNoResponse) {
                     $responseSchemaRaw = [];
                 } else {
