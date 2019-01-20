@@ -196,6 +196,33 @@ class RequestBasedOperationFinderTest extends TestCase
         $this->assertEquals('getBookAuthors', $operation->getOperationId());
     }
 
+    public function testShouldIgnoreQueryParametersInRequest()
+    {
+        $sut = new RequestBasedOperationFinder(
+            '/books/123/authors?foo=1&bar=baz',
+            'GET',
+            [
+                new Operation(
+                    '/books/{bookId}/authors?foo={foo}&bar={bar}',
+                    'GET',
+                    'getBookAuthors',
+                    []
+                ),
+                new Operation(
+                    '/books',
+                    'GET',
+                    'getBooks',
+                    []
+                )
+            ]
+        );
+
+        $operation = $sut->find();
+
+        $this->assertEquals('getBookAuthors', $operation->getOperationId());
+    }
+
+
     public function testShouldThrowExceptionOnOperationNotFound()
     {
         $this->expectException(UnableToFindOperationException::class);
