@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator\Tests;
 
-
 use Mmal\OpenapiValidator\Exception\OperationNotFoundException;
 use Mmal\OpenapiValidator\Exception\ResponseNotFoundException;
 use Mmal\OpenapiValidator\OperationFinder\UnableToFindOperationException;

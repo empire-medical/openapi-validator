@@ -90,7 +90,6 @@ class Spec
                         )
                     );
                 }
-
             } else {
                 $responseSchemaRaw = $response['content'];
             }

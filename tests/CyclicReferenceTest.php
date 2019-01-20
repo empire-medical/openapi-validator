@@ -102,5 +102,4 @@ class CyclicReferenceTest extends BaseTestCase
 
         return $this->getInstance($schema);
     }
-
 }

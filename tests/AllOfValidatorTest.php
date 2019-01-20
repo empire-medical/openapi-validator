@@ -61,5 +61,4 @@ class AllOfValidatorTest extends BaseTestCase
 
         return $this->getInstance($schema);
     }
-
 }

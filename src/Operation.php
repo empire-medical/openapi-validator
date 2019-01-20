@@ -30,8 +30,7 @@ class Operation implements OperationInterface
         string $method,
         string $operationId,
         array $responses
-    )
-    {
+    ) {
         $this->urlTemplate = $urlTemplate;
         $this->method = $method;
         $this->operationId = $operationId;
@@ -43,10 +42,12 @@ class Operation implements OperationInterface
     public function getSchemaByResponse(int $statusCode, string $contentType): SchemaInterface
     {
         if (!isset($this->responses[$statusCode])) {
-            throw new ResponseNotFoundException(sprintf(
+            throw new ResponseNotFoundException(
+                sprintf(
                     'Response not found by %s status code and content type %s',
                     $statusCode,
-                    $contentType)
+                    $contentType
+            )
             );
         }
         $response = $this->responses[$statusCode];

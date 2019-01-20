@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator\Tests\OperationFinder;
 
-
 use Mmal\OpenapiValidator\Operation;
 use Mmal\OpenapiValidator\OperationFinder\RequestBasedOperationFinder;
 use Mmal\OpenapiValidator\OperationFinder\UnableToFindOperationException;
@@ -248,6 +247,4 @@ class RequestBasedOperationFinderTest extends TestCase
 
         $sut->find();
     }
-
-
 }

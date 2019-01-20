@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator\Tests;
 
-
 use Mmal\OpenapiValidator\Validator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Yaml;

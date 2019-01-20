@@ -13,5 +13,4 @@ class OneOfSchema extends AnyOfSchema
     {
         return 'oneOf';
     }
-
 }

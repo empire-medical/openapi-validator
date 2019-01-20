@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator\OperationFinder;
 
-
 use Mmal\OpenapiValidator\OperationInterface;
 
 class IdBasedOperationFinder implements OperationFinder
@@ -36,5 +35,4 @@ class IdBasedOperationFinder implements OperationFinder
 
         return $this->operations[$this->operationId];
     }
-
 }

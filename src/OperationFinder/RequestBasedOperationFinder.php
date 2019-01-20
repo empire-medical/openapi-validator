@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator\OperationFinder;
 
-
 use Mmal\OpenapiValidator\Operation;
 use Mmal\OpenapiValidator\OperationInterface;
 
@@ -47,5 +46,4 @@ class RequestBasedOperationFinder implements OperationFinder
 
         return array_shift($operationsMatchingUrlTemplate);
     }
-
 }

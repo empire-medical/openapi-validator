@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator\Property;
 
-
 class UnknownTypeProperty extends AbstractProperty
 {
 
@@ -29,5 +28,4 @@ class UnknownTypeProperty extends AbstractProperty
     public function applyDiscriminatorData($actualData)
     {
     }
-
 }

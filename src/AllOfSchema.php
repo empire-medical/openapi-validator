@@ -22,7 +22,7 @@ class AllOfSchema extends AbstractProperty
         $this->innerSchemas = $innerSchemas;
         $this->name = $name;
         $this->nullable = $nullable;
-        if($this->nullable === true) {
+        if ($this->nullable === true) {
             foreach ($this->innerSchemas as $schema) {
                 $schema->makeNullable();
             }

@@ -54,12 +54,12 @@ class ReferenceResolver
         return $this->schemas[$ref];
     }
 
-    static public function fromData($data): ReferenceResolver
+    public static function fromData($data): ReferenceResolver
     {
         $refResolver = new self([]);
         $componentFields = ['schemas', 'responses'];
 
-        foreach($componentFields as $field) {
+        foreach ($componentFields as $field) {
             if (isset($data['components'][$field])) {
                 foreach ($data['components'][$field] as $name => $schema) {
                     $refResolver->addRef('#/components/'.$field.'/'.$name, $schema);

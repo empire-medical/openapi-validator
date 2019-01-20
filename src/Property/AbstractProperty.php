@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator\Property;
 
-
 abstract class AbstractProperty implements PropertyInterface
 {
     /** @var string */

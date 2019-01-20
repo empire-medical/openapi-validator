@@ -3,7 +3,6 @@
 
 namespace Mmal\OpenapiValidator\OperationFinder;
 
-
 use Mmal\OpenapiValidator\OperationInterface;
 
 interface OperationFinder
