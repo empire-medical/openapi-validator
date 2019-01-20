@@ -5,6 +5,9 @@ namespace Mmal\OpenapiValidator;
 
 use Mmal\OpenapiValidator\DataValidator\DataValidatorInterface;
 use Mmal\OpenapiValidator\DataValidator\JsonGuardDataValidator;
+use Mmal\OpenapiValidator\OperationFinder\IdBasedOperationFinder;
+use Mmal\OpenapiValidator\OperationFinder\OperationFinder;
+use Mmal\OpenapiValidator\OperationFinder\RequestBasedOperationFinder;
 
 class Validator
 {
@@ -17,17 +20,31 @@ class Validator
     }
 
 
-    public function validate(string $operationId, int $statusCode, $responseData, string $contentType = 'application/json')
-    {
-        $schema = $this->spec
-            ->getOperationById($operationId)
-            ->getSchemaByResponse($statusCode, $contentType);
+    public function validate(
+        string $operationId,
+        int $statusCode,
+        $responseData,
+        string $contentType = 'application/json'
+    ) {
+        $locator = new IdBasedOperationFinder($this->spec->getOperations(), $operationId);
 
-        $schema->applyDiscriminatorData($responseData);
+        return $this->doValidate($statusCode, $responseData, $contentType, $locator);
+    }
 
-        $dataValidator = $this->getDataValidator();
+    public function validateBasedOnRequest(
+        string $requestPath,
+        string $requestMethod,
+        int $statusCode,
+        $responseData,
+        string $contentType = 'application/json'
+    ) {
+        $locator = new RequestBasedOperationFinder(
+            $requestPath,
+            $requestMethod,
+            $this->spec->getOperations()
+        );
 
-        return $dataValidator->validate($responseData, $schema);
+        return $this->doValidate($statusCode, $responseData, $contentType, $locator);
     }
 
     /**
@@ -36,5 +53,23 @@ class Validator
     protected function getDataValidator(): DataValidatorInterface
     {
         return new JsonGuardDataValidator();
+    }
+
+
+    protected function doValidate(
+        int $statusCode,
+        $responseData,
+        string $contentType,
+        OperationFinder $locator
+    ): Error\ErrorInterface {
+        $schema = $locator
+            ->find()
+            ->getSchemaByResponse($statusCode, $contentType);
+
+        $schema->applyDiscriminatorData($responseData);
+
+        $dataValidator = $this->getDataValidator();
+
+        return $dataValidator->validate($responseData, $schema);
     }
 }

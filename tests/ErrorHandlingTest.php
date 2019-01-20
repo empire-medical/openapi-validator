@@ -7,6 +7,7 @@ namespace Mmal\OpenapiValidator\Tests;
 
 use Mmal\OpenapiValidator\Exception\OperationNotFoundException;
 use Mmal\OpenapiValidator\Exception\ResponseNotFoundException;
+use Mmal\OpenapiValidator\OperationFinder\UnableToFindOperationException;
 use Mmal\OpenapiValidator\Validator;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +21,7 @@ class ErrorHandlingTest extends BaseTestCase
 
     public function testErrorOnOperationNotFound()
     {
-        $this->expectException(OperationNotFoundException::class);
+        $this->expectException(UnableToFindOperationException::class);
 
         $validator = $this->getTestedClass();
 

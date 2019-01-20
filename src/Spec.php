@@ -24,16 +24,9 @@ class Spec
         }
     }
 
-    public function getOperationById(string $operationId): OperationInterface
+    public function getOperations()
     {
-        if (!isset($this->operations[$operationId])) {
-            throw new OperationNotFoundException(sprintf(
-                'Operation %s not found',
-                $operationId
-            ));
-        }
-
-        return $this->operations[$operationId];
+        return $this->operations;
     }
 
     /**
