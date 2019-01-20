@@ -17,10 +17,23 @@ class Operation implements OperationInterface
     /** @var array|ResponseInterface[] */
     private $responses;
 
+    /** @var string */
+    private $urlTemplate;
+
+    /** @var string */
+    private $method;
+
     /**
      */
-    public function __construct(string $operationId, array $responses)
+    public function __construct(
+        string $urlTemplate,
+        string $method,
+        string $operationId,
+        array $responses
+    )
     {
+        $this->urlTemplate = $urlTemplate;
+        $this->method = $method;
         $this->operationId = $operationId;
         foreach ($responses as $respons) {
             $this->responses[$respons->getStatusCode()] = $respons;
@@ -44,5 +57,15 @@ class Operation implements OperationInterface
     public function getOperationId(): string
     {
         return $this->operationId;
+    }
+
+    public function getUrlTemplate(): string
+    {
+        return $this->urlTemplate;
+    }
+
+    public function getMethod(): string
+    {
+        return $this->method;
     }
 }

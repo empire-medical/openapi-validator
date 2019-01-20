@@ -49,15 +49,24 @@ class Spec
         }
         foreach ($data['paths'] as $urlTemplate => $methods) {
             foreach ($methods as $method => $operation) {
-                $operations[] = self::makeOperation($operation, $refResolver);
+                $operations[] = self::makeOperation(
+                    $urlTemplate,
+                    $method,
+                    $operation,
+                    $refResolver
+                );
             }
         }
 
         return new self($operations);
     }
 
-    protected static function makeOperation(array $operation, ReferenceResolver $referenceResolver): Operation
-    {
+    protected static function makeOperation(
+        string $urlTemplate,
+        string $method,
+        array $operation,
+        ReferenceResolver $referenceResolver
+    ): Operation {
         $responses = [];
         if (!isset($operation['operationId'])) {
             throw new InvalidSchemaException('Missing operationId');
@@ -116,7 +125,7 @@ class Spec
             );
         }
 
-        return new Operation($operation['operationId'], $responses);
+        return new Operation($urlTemplate, $method, $operation['operationId'], $responses);
     }
 
     protected static function getSchema(array $data, ReferenceResolver $referenceResolver): SchemaInterface
