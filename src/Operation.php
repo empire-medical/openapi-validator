@@ -42,12 +42,17 @@ class Operation implements OperationInterface
     public function getSchemaByResponse(int $statusCode, string $contentType): SchemaInterface
     {
         if (!isset($this->responses[$statusCode])) {
-            throw new ResponseNotFoundException(
-                sprintf(
-                    'Response not found by %s status code and content type %s',
+            throw new ResponseNotFoundException(sprintf(
+                    'Response not found by %s status code and content type %s, known responses for operation %s: %s',
                     $statusCode,
-                    $contentType
-            )
+                    $contentType,
+                    $this->operationId,
+                    json_encode(array_map(function(ResponseInterface $response){
+                        return [
+                            'status_code' => $response->getStatusCode()
+                        ];
+                    }, $this->responses))
+                )
             );
         }
         $response = $this->responses[$statusCode];

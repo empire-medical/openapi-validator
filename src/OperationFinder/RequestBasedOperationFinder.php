@@ -37,11 +37,22 @@ class RequestBasedOperationFinder implements OperationFinder
             $operationUrlTemplate = new UrlTemplate($operation->getUrlTemplate());
 
             return $operationUrlTemplate->matches($this->requestUrl) &&
-                $operation->getMethod() === $this->requestMethod;
+                strtolower($operation->getMethod()) === strtolower($this->requestMethod);
         });
 
         if (empty($operationsMatchingUrlTemplate)) {
-            throw new UnableToFindOperationException('');
+            throw new UnableToFindOperationException(sprintf(
+                'Operation not found by %s %s, known operations: %s',
+                $this->requestMethod,
+                $this->requestUrl,
+                json_encode(array_map(function(Operation $operation){
+                    return [
+                        'urlTemplate' => $operation->getUrlTemplate(),
+                        'method' => $operation->getMethod(),
+                        'id' => $operation->getOperationId(),
+                    ];
+                }, $this->operations))
+            ));
         }
 
         return array_shift($operationsMatchingUrlTemplate);
