@@ -7,6 +7,7 @@ namespace Mmal\OpenapiValidator;
 use Mmal\OpenapiValidator\Exception\InvalidSchemaException;
 use Mmal\OpenapiValidator\Exception\OperationNotFoundException;
 use Mmal\OpenapiValidator\Reference\ReferenceResolver;
+use Mmal\OpenapiValidator\Response\DefaultResponse;
 use Mmal\OpenapiValidator\Response\Response;
 
 class Spec
@@ -71,6 +72,7 @@ class Spec
             ));
         }
 
+        $defaultResponse = null;
         foreach ($operation['responses'] as $statusCode => $response) {
             $responseSchemaRaw = null;
             if (isset($response['$ref'])) {
@@ -111,13 +113,18 @@ class Spec
                 );
             }
 
-            $responses[] = new Response(
-                (int)$statusCode,
-                $schemas
-            );
+            if($statusCode == 'default') {
+                $defaultResponse = new DefaultResponse($schemas);
+            } else {
+                $responses[] = new Response(
+                    (int)$statusCode,
+                    $schemas
+                );
+            }
+
         }
 
-        return new Operation($urlTemplate, $method, $operation['operationId'], $responses);
+        return new Operation($urlTemplate, $method, $operation['operationId'], $responses, $defaultResponse);
     }
 
     protected static function getSchema(array $data, ReferenceResolver $referenceResolver): SchemaInterface

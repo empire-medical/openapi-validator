@@ -13,7 +13,7 @@ class Response implements ResponseInterface
     private $statusCode;
 
     /** @var SchemaInterface[]|array */
-    private $schemas;
+    protected $schemas;
 
     /**
      */
@@ -23,9 +23,16 @@ class Response implements ResponseInterface
         $this->schemas = $schemas;
     }
 
-    public function getStatusCode(): int
+    public function toArray(): array
     {
-        return $this->statusCode;
+        return [
+            'status_code' => $this->statusCode
+        ];
+    }
+
+    public function doesSupportStatusCode(int $statusCode): bool
+    {
+        return $this->statusCode === $statusCode;
     }
 
     public function getSchema(string $contentType): SchemaInterface

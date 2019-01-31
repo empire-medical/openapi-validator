@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Mmal\OpenapiValidator;
 
 use Mmal\OpenapiValidator\Exception\ResponseNotFoundException;
+use Mmal\OpenapiValidator\Response\DefaultResponse;
+use Mmal\OpenapiValidator\Response\Response;
 use Mmal\OpenapiValidator\Response\ResponseInterface;
 
 class Operation implements OperationInterface
@@ -23,39 +25,49 @@ class Operation implements OperationInterface
     /** @var string */
     private $method;
 
+    /** @var DefaultResponse */
+    private $defaultResponse;
+
     /**
      */
     public function __construct(
         string $urlTemplate,
         string $method,
         string $operationId,
-        array $responses
+        array $responses,
+        ResponseInterface $defualtResponse = null
     ) {
         $this->urlTemplate = $urlTemplate;
         $this->method = $method;
         $this->operationId = $operationId;
         foreach ($responses as $respons) {
-            $this->responses[$respons->getStatusCode()] = $respons;
+            $this->responses[] = $respons;
         }
+        $this->defaultResponse = $defualtResponse;
     }
 
     public function getSchemaByResponse(int $statusCode, string $contentType): SchemaInterface
     {
-        if (!isset($this->responses[$statusCode])) {
-            throw new ResponseNotFoundException(sprintf(
-                    'Response not found by %s status code and content type %s, known responses for operation %s: %s',
-                    $statusCode,
-                    $contentType,
-                    $this->operationId,
-                    json_encode(array_map(function(ResponseInterface $response){
-                        return [
-                            'status_code' => $response->getStatusCode()
-                        ];
-                    }, $this->responses))
-                )
-            );
+        $responseForStatusCode = array_filter($this->responses, function (Response $response) use ($statusCode) {
+            return $response->doesSupportStatusCode($statusCode);
+        });
+        if (empty($responseForStatusCode)) {
+            if ($this->defaultResponse instanceof DefaultResponse) {
+                return $this->defaultResponse->getSchema($contentType);
+            } else {
+                throw new ResponseNotFoundException(sprintf(
+                        'Response not found by %s status code and content type %s, known responses for operation %s: %s',
+                        $statusCode,
+                        $contentType,
+                        $this->operationId,
+                        json_encode(array_map(function (ResponseInterface $response) {
+                            return $response->toArray();
+                        }, $this->responses))
+                    )
+                );
+            }
         }
-        $response = $this->responses[$statusCode];
+        $response = array_shift($responseForStatusCode);
 
         return $response->getSchema($contentType);
     }

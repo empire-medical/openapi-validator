@@ -6,7 +6,9 @@ use Mmal\OpenapiValidator\SchemaInterface;
 
 interface ResponseInterface
 {
-    public function getStatusCode(): int;
+    public function doesSupportStatusCode(int $statusCode): bool;
 
     public function getSchema(string $contentType): SchemaInterface;
+
+    public function toArray(): array;
 }
