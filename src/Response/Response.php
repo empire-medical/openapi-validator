@@ -9,7 +9,7 @@ use Mmal\OpenapiValidator\SchemaInterface;
 
 class Response implements ResponseInterface
 {
-    /** @var int */
+    /** @var int|string */
     private $statusCode;
 
     /** @var SchemaInterface[]|array */
@@ -17,8 +17,9 @@ class Response implements ResponseInterface
 
     /**
      */
-    public function __construct(int $statusCode, array $schemas)
+    public function __construct($statusCode, array $schemas)
     {
+        //@todo handle invalid status codes
         $this->statusCode = $statusCode;
         $this->schemas = $schemas;
     }
@@ -26,13 +27,21 @@ class Response implements ResponseInterface
     public function toArray(): array
     {
         return [
-            'status_code' => $this->statusCode
+            'status_code' => $this->statusCode,
         ];
     }
 
     public function doesSupportStatusCode(int $statusCode): bool
     {
-        return $this->statusCode === $statusCode;
+        if (is_numeric($this->statusCode)) {
+            return (int)$this->statusCode === $statusCode;
+        }
+        if (preg_match('|[0-9]xx|', $this->statusCode)) {
+            $firstDigit = $this->statusCode[0];
+            return $statusCode >= ($firstDigit * 100) && $statusCode <= ($firstDigit * 100 + 99);
+        }
+
+        return false;
     }
 
     public function getSchema(string $contentType): SchemaInterface

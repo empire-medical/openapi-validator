@@ -117,7 +117,7 @@ class Spec
                 $defaultResponse = new DefaultResponse($schemas);
             } else {
                 $responses[] = new Response(
-                    (int)$statusCode,
+                    $statusCode,
                     $schemas
                 );
             }
