@@ -45,12 +45,14 @@ class RequestBasedOperationFinder implements OperationFinder
                 'Operation not found by %s %s, known operations: %s',
                 $this->requestMethod,
                 $this->requestUrl,
-                json_encode(array_map(function(Operation $operation){
-                    return [
+                implode(PHP_EOL, array_map(function (Operation $operation) {
+                    $data = [
                         'urlTemplate' => $operation->getUrlTemplate(),
                         'method' => $operation->getMethod(),
                         'id' => $operation->getOperationId(),
                     ];
+
+                    return json_encode($data).PHP_EOL;
                 }, $this->operations))
             ));
         }
