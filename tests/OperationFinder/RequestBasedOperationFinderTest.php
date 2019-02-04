@@ -247,4 +247,59 @@ class RequestBasedOperationFinderTest extends TestCase
 
         $sut->find();
     }
+
+    public function testShouldIgnorePreecedingSlashes()
+    {
+        $sut = new RequestBasedOperationFinder(
+            'books',
+            'GET',
+            [
+                new Operation(
+                    '/books',
+                    'POST',
+                    'createBook',
+                    []
+                ),
+                new Operation(
+                    '/books',
+                    'GET',
+                    'getBooks',
+                    []
+                )
+            ]
+        );
+
+        $operation = $sut->find();
+
+        $this->assertEquals('getBooks', $operation->getOperationId());
+    }
+
+
+    public function testShouldIgnoreTrailingSlashes()
+    {
+        $sut = new RequestBasedOperationFinder(
+            '/books/',
+            'GET',
+            [
+                new Operation(
+                    '/books',
+                    'POST',
+                    'createBook',
+                    []
+                ),
+                new Operation(
+                    '/books',
+                    'GET',
+                    'getBooks',
+                    []
+                )
+            ]
+        );
+
+        $operation = $sut->find();
+
+        $this->assertEquals('getBooks', $operation->getOperationId());
+    }
+
+
 }

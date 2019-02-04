@@ -9,6 +9,7 @@ use Mmal\OpenapiValidator\SchemaInterface;
 
 class Response implements ResponseInterface
 {
+    const RANGE_PATTERN = '|[0-9]xx|';
     /** @var int|string */
     private $statusCode;
 
@@ -19,7 +20,15 @@ class Response implements ResponseInterface
      */
     public function __construct($statusCode, array $schemas)
     {
-        //@todo handle invalid status codes
+        if (
+            !is_numeric($statusCode) &&
+            !preg_match(self::RANGE_PATTERN, $statusCode)
+        ) {
+            throw new \InvalidArgumentException(sprintf(
+                'Provided status code %s is neither a valid http code or range of codes',
+                $statusCode
+            ));
+        }
         $this->statusCode = $statusCode;
         $this->schemas = $schemas;
     }
@@ -36,8 +45,9 @@ class Response implements ResponseInterface
         if (is_numeric($this->statusCode)) {
             return (int)$this->statusCode === $statusCode;
         }
-        if (preg_match('|[0-9]xx|', $this->statusCode)) {
+        if (preg_match(self::RANGE_PATTERN, $this->statusCode)) {
             $firstDigit = $this->statusCode[0];
+
             return $statusCode >= ($firstDigit * 100) && $statusCode <= ($firstDigit * 100 + 99);
         }
 

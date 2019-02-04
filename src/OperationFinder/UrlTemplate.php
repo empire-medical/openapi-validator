@@ -14,11 +14,12 @@ class UrlTemplate
     public function __construct(string $template)
     {
         $array = explode('?', $template);
-        $this->template = array_shift($array);
+        $this->template = trim(array_shift($array), '/');
     }
 
     public function matches(string $requestPath): bool
     {
+        $requestPath = trim($requestPath, '/');
         $array = explode('?', $requestPath);
         $requestPathCleaned = array_shift($array);
         $templateParts = explode('/', $this->template);
