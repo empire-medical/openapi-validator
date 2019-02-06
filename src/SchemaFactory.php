@@ -27,6 +27,9 @@ class SchemaFactory
         if (empty($data)) {
             return new EmptySchema();
         }
+        if (isset($data['$ref'])) {
+            $data = $this->referenceResolver->resolve($data['$ref']);
+        }
         if (isset($data['allOf'])) {
             $schemas = [];
             foreach ($data['allOf'] as $row) {
@@ -76,9 +79,6 @@ class SchemaFactory
                 $data['discriminator']['propertyName'] ?? null,
                 $discriminatorMappingDereferenced
             );
-        }
-        if (isset($data['$ref'])) {
-            $data = $this->referenceResolver->resolve($data['$ref']);
         }
         if (isset($data['type'])) {
             if ($data['type'] === 'object') {
