@@ -1,5 +1,6 @@
 analyse:
   image: edbizarro/gitlab-ci-pipeline-php:7.1
+  allow_failure: true
   script:
     - composer install
     - composer require --dev phpstan/phpstan

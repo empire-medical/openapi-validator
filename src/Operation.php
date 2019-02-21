@@ -25,7 +25,7 @@ class Operation implements OperationInterface
     /** @var string */
     private $method;
 
-    /** @var DefaultResponse|null */
+    /** @var ResponseInterface|null */
     private $defaultResponse;
 
     /**
