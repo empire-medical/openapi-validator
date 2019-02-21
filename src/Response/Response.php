@@ -46,7 +46,7 @@ class Response implements ResponseInterface
             return (int)$this->statusCode === $statusCode;
         }
         if (preg_match(self::RANGE_PATTERN, $this->statusCode)) {
-            $firstDigit = $this->statusCode[0];
+            $firstDigit = (int)$this->statusCode[0];
 
             return $statusCode >= ($firstDigit * 100) && $statusCode <= ($firstDigit * 100 + 99);
         }

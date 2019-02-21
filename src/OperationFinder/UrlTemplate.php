@@ -14,7 +14,11 @@ class UrlTemplate
     public function __construct(string $template)
     {
         $array = explode('?', $template);
-        $this->template = trim(array_shift($array), '/');
+        $part = array_shift($array);
+        if (!is_string($part)) {
+            throw new \InvalidArgumentException(sprintf('Invalid template %s', $template));
+        }
+        $this->template = trim($part, '/');
     }
 
     public function matches(string $requestPath): bool
@@ -35,7 +39,7 @@ class UrlTemplate
             }
             $templatePart = $templateParts[$partIndex];
             if (
-                preg_match('|^{[^}]+}$|', $templatePart)
+            preg_match('|^{[^}]+}$|', $templatePart)
             ) {
                 continue;
             }

@@ -25,7 +25,7 @@ class Operation implements OperationInterface
     /** @var string */
     private $method;
 
-    /** @var DefaultResponse */
+    /** @var DefaultResponse|null */
     private $defaultResponse;
 
     /**
@@ -54,19 +54,18 @@ class Operation implements OperationInterface
         if (empty($responseForStatusCode)) {
             if ($this->defaultResponse instanceof DefaultResponse) {
                 return $this->defaultResponse->getSchema($contentType);
-            } else {
-                throw new ResponseNotFoundException(
-                    sprintf(
-                        'Response not found by %s status code and content type %s, known responses for operation %s: %s',
-                        $statusCode,
-                        $contentType,
-                        $this->operationId,
-                        json_encode(array_map(function (ResponseInterface $response) {
-                            return $response->toArray();
-                        }, $this->responses))
-                    )
-                );
             }
+            throw new ResponseNotFoundException(
+                sprintf(
+                    'Response not found by %s status code and content type %s, known responses for operation %s: %s',
+                    $statusCode,
+                    $contentType,
+                    $this->operationId,
+                    json_encode(array_map(function (ResponseInterface $response) {
+                        return $response->toArray();
+                    }, $this->responses))
+                )
+            );
         }
         $response = array_shift($responseForStatusCode);
 
