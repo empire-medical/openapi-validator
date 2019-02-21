@@ -1,19 +1,7 @@
-cache:
-  paths:
-  - vendor/
-
-before_script:
-# Install composer dependencies
-- wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
-- php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-- php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-- php composer-setup.php
-- php -r "unlink('composer-setup.php'); unlink('installer.sig');"
-- php composer.phar install
-
 analyse:
   image: edbizarro/gitlab-ci-pipeline-php:7.1
   script:
+    - composer install
     - composer require --dev phpstan/phpstan
     - vendor/bin/phpstan analyse src --level=7
 
@@ -21,19 +9,19 @@ test:7.2:
     image: edbizarro/gitlab-ci-pipeline-php:7.2
     stage: test
     script:
-      - make build
+      - composer install
       - make test
 
 test:7.1:
     image: edbizarro/gitlab-ci-pipeline-php:7.1
     stage: test
     script:
-      - make build
+      - composer install
       - make test
 
 test:7.0:
     image: edbizarro/gitlab-ci-pipeline-php:7.0
     stage: test
     script:
-      - make build
+      - composer install
       - make test
