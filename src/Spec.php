@@ -43,6 +43,15 @@ class Spec
         }
         foreach ($data['paths'] as $urlTemplate => $methods) {
             foreach ($methods as $method => $operation) {
+                //@todo write tests
+                if (
+                !in_array(
+                    strtolower($method),
+                    ['get', 'post', 'put', 'delete', 'options', 'head', 'patch', 'trace']
+                )
+                ) {
+                    continue;
+                }
                 $operations[] = self::makeOperation(
                     $urlTemplate,
                     $method,
@@ -80,7 +89,8 @@ class Spec
             }
 
             if (!isset($response['content']) || empty($response['content'])) {
-                $allowNoResponse = $statusCode == 204;
+                //@todo validate empty actually empty + tests - raise error if response is not empty
+                $allowNoResponse = in_array($statusCode, [201, 202, 204, 304]);
                 if ($allowNoResponse) {
                     $responseSchemaRaw = [];
                 } else {
@@ -113,7 +123,7 @@ class Spec
                 );
             }
 
-            if($statusCode == 'default') {
+            if ($statusCode == 'default') {
                 $defaultResponse = new DefaultResponse($schemas);
             } else {
                 $responses[] = new Response(
