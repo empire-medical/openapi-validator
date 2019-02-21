@@ -55,7 +55,8 @@ class Operation implements OperationInterface
             if ($this->defaultResponse instanceof DefaultResponse) {
                 return $this->defaultResponse->getSchema($contentType);
             } else {
-                throw new ResponseNotFoundException(sprintf(
+                throw new ResponseNotFoundException(
+                    sprintf(
                         'Response not found by %s status code and content type %s, known responses for operation %s: %s',
                         $statusCode,
                         $contentType,

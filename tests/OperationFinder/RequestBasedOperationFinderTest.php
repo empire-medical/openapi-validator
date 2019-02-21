@@ -300,6 +300,4 @@ class RequestBasedOperationFinderTest extends TestCase
 
         $this->assertEquals('getBooks', $operation->getOperationId());
     }
-
-
 }

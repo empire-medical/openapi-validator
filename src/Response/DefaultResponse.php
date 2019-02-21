@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mmal\OpenapiValidator\Response;
 
-
 class DefaultResponse extends Response
 {
     /**
@@ -18,5 +17,4 @@ class DefaultResponse extends Response
     {
         return true;
     }
-
 }

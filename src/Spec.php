@@ -131,7 +131,6 @@ class Spec
                     $schemas
                 );
             }
-
         }
 
         return new Operation($urlTemplate, $method, $operation['operationId'], $responses, $defaultResponse);
