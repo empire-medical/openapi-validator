@@ -1,8 +1,20 @@
 info:
+  title: example api
+  version: '1'
+  contact:
+    name: me
+    url: some-url.com
+    email: me@some.com
+tags:
+  -
+    name: someTag
 paths:
   /books:
     get:
       operationId: getBooks
+      description: get list of books
+      tags:
+        - someTag
       responses:
         '200':
           description: Fetch list of books
