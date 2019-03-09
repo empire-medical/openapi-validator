@@ -183,6 +183,8 @@ class CardsControllerTest extends BaseControllerTest
 2. Make request with any http client
 3. Pass request uri, request method, response code and response body to validator (and optionally media type, default is application/json)
 4. Validator will find figure out that for method 'GET', path '/cards' and response code 200, required response schema is:
+
+
 ```yaml
 card:
   title: Root Type for card
