@@ -14,6 +14,12 @@ Validate data against [openapi v3 spec](https://github.com/OAI/OpenAPI-Specifica
 
 Unlike Dredd it does not require examples and does not check that data matches examples
 
+## Installation
+
+```bash
+composer req --dev mmal/openapi-validator
+```
+
 ## Requirements
 
 Your openapi spec has to be valid, You can use [Speccy](https://github.com/wework/speccy) to check Your schema first
