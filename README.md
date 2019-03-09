@@ -83,6 +83,8 @@ components:
         id: "23423423"
         name: "Geralt"
         power: 10
+        
+
 ```
 
 We have server implementation (this is of course example - normally You would fetch data from some storage)
@@ -118,6 +120,8 @@ class CardsController extends OAuthController
         );
     }
 }
+
+
 ```
 
 How to verify that server implementation works as described? Use openapi-validator with any http client:
@@ -171,6 +175,8 @@ class CardsControllerTest extends BaseControllerTest
         return RESTResponse::fromHTTPResponse($response);
     }
 }
+
+
 ```
 
 1. Load Your spec to validator
@@ -203,6 +209,8 @@ card:
 	name: "Geralt"
 	power: 10
 
+
+
 ```
 
 5. Actual response body is validated against that schema
@@ -232,6 +240,8 @@ Lets now introduce some errors:
             ]
         );
     }
+    
+
 ```
 
 Required id field for second item is missing:
@@ -258,6 +268,8 @@ public function getCardsAction()
             ]
         );
     }
+    
+
 ```
 
 power field should be integer (second item):
