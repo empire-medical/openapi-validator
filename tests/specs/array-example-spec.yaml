@@ -12,6 +12,9 @@ paths:
   /books:
     get:
       operationId: getBooksList
+      description: get list of books
+      tags:
+        - someTag
       responses:
         '200':
           description: Fetch list of books
@@ -32,6 +35,9 @@ paths:
       responses:
         '200':
           description: Fetch list of books
+          description: get list of books
+          tags:
+            - someTag
           content:
             application/json:
               schema:
