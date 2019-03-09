@@ -1,10 +1,10 @@
 ## What is this? 
 
-Validate data against openapi v3 spec [https://github.com/OAI/OpenAPI-Specification]
+Validate data against [openapi v3 spec](https://github.com/OAI/OpenAPI-Specification)
 
 ## Requirements
 
-Your openapi spec has to be valid, You can use [https://github.com/wework/speccy] to check Your schema first
+Your openapi spec has to be valid, You can use [Speccy](https://github.com/wework/speccy) to check Your schema first
 
 This library assumes that each operation has operationId
 
@@ -252,8 +252,8 @@ power field should be integer (second item):
 
 ## Other libraries
 
-1. Dredd [https://github.com/apiaryio/dredd] - currently supports only swagger/openapi v2, support for v3 is not yet there
-2. [https://github.com/WakeOnWeb/swagger] - support for v2 only 
+1. [Dredd](https://github.com/apiaryio/dredd) - currently supports only swagger/openapi v2, support for v3 is not yet there
+2. [Swagger](https://github.com/WakeOnWeb/swagger) - support for v2 only 
 
 ## Features
 

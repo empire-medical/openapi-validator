@@ -1,4 +1,13 @@
 info:
+  title: example api
+  version: '1'
+  contact:
+    name: me
+    url: some-url.com
+    email: me@some.com
+tags:
+  -
+    name: someTag
 
 paths:
   /books:
