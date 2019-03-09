@@ -202,7 +202,9 @@ card:
 	id: "23423423"
 	name: "Geralt"
 	power: 10
+
 ```
+
 5. Actual response body is validated against that schema
 6. Result object is produced, if response is invalid then result object will contain errors
 
