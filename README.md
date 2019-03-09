@@ -2,6 +2,18 @@
 
 Validate data against [openapi v3 spec](https://github.com/OAI/OpenAPI-Specification)
 
+## Features
+
+1. Checks for required fields
+2. Checks types
+3. Supports nested structures
+4. Supports discriminator
+5. Supports allOf, anyOf
+6. Supports nullable
+7. Resolves local references (components)
+
+Unlike Dredd it does not require examples and does not check that data matches examples
+
 ## Requirements
 
 Your openapi spec has to be valid, You can use [Speccy](https://github.com/wework/speccy) to check Your schema first
@@ -255,11 +267,6 @@ power field should be integer (second item):
 1. [Dredd](https://github.com/apiaryio/dredd) - currently supports only swagger/openapi v2, support for v3 is not yet there
 2. [Swagger](https://github.com/WakeOnWeb/swagger) - support for v2 only 
 
-## Features
-
-1. Supports discriminator
-2. Supports nullable
-3. Resolves dependecies (schema and response components)
 
 ## TODO
 
