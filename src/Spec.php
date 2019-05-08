@@ -90,7 +90,7 @@ class Spec
 
             if (!isset($response['content']) || empty($response['content'])) {
                 //@todo validate empty actually empty + tests - raise error if response is not empty
-                $allowNoResponse = in_array($statusCode, [201, 202, 204, 304]);
+                $allowNoResponse = in_array($statusCode, [201, 202, 204, 301, 303, 304]);
                 if ($allowNoResponse) {
                     $responseSchemaRaw = [];
                 } else {
