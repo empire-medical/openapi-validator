@@ -57,7 +57,7 @@ class Response implements ResponseInterface
     public function getSchema(string $contentType): SchemaInterface
     {
         if (!isset($this->schemas[$contentType])) {
-            if ($this->statusCode == 204) {
+            if ($this->statusCode == 204 || $this->statusCode == 202) {
                 return new EmptySchema();
             }
             throw new \InvalidArgumentException(sprintf('No defined schema for content-type %s', $contentType));
