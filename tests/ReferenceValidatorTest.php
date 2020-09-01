@@ -22,6 +22,16 @@ class ReferenceValidatorTest extends BaseTestCase
         $this->assertFalse($error->hasErrors());
     }
 
+    public function testNullableRefValid()
+    {
+        $validator = $this->getTestedClass();
+
+        $error = $validator->validate('nullableReference', 200, ['name' => 'test', 'nestedObj' => null]);
+
+        $this->assertFalse($error->hasErrors());
+    }
+
+
     public function testNestedObjectNotRequiredInvalidField()
     {
         $validator = $this->getTestedClass();

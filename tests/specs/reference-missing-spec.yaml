@@ -63,6 +63,26 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/IdontExist"
+  /v5/books:
+    get:
+      operationId: nullableReference
+      responses:
+        '200':
+          description: Fetch list of books
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - name
+                properties:
+                  name:
+                    type: string
+                    nullable: false
+                    example: "Vulcan lives"
+                  nestedObj:
+                    nullable: true
+                    $ref: "#/components/schemas/nestedObj"
 components:
   schemas:
     nestedObj:
