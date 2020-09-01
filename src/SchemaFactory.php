@@ -28,7 +28,7 @@ class SchemaFactory
             return new EmptySchema();
         }
         if (isset($data['$ref'])) {
-            $data = $this->referenceResolver->resolve($data['$ref']);
+            $data = array_merge($data, $this->referenceResolver->resolve($data['$ref']));
         }
         if (isset($data['allOf'])) {
             $schemas = [];
