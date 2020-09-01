@@ -28,7 +28,7 @@ class ReferenceValidatorTest extends BaseTestCase
 
         $error = $validator->validate('nullableReference', 200, ['name' => 'test', 'nestedObj' => null]);
 
-        $this->assertFalse($error->hasErrors());
+        $this->assertFalse($error->hasErrors(), $error->__toString());
     }
 
 
