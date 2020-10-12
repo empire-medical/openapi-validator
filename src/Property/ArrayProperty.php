@@ -34,9 +34,8 @@ class ArrayProperty extends AbstractProperty
 
     public function applyDiscriminatorData($actualData)
     {
-        $singleItem = current($actualData);
-        if (isset($singleItem[$this->name])) {
-            $this->items->applyDiscriminatorData(current($singleItem[$this->name]));
+        foreach ($actualData as $singleItem) {
+            $this->items->applyDiscriminatorData($singleItem);
         }
     }
 }
