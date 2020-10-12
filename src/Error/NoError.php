@@ -15,4 +15,14 @@ class NoError implements ErrorInterface
     {
         return '';
     }
+
+
+    public function getOperation(): string
+    {
+      return '';
+    }
+
+    public function setOperation(string $operation)
+    {
+    }
 }

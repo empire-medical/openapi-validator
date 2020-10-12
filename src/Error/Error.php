@@ -17,6 +17,9 @@ class Error implements ErrorInterface
     /** @var string */
     private $constraint;
 
+    /** @var string */
+    private $operation;
+
     /**
      */
     public function __construct(string $message, string $property, string $constraint)
@@ -37,5 +40,15 @@ class Error implements ErrorInterface
         return $this->message.PHP_EOL.
             'property: '. $this->property.PHP_EOL.
             'constraint: ' . $this->constraint.PHP_EOL;
+    }
+
+    public function getOperation(): string
+    {
+        return $this->operation;
+    }
+
+    public function setOperation(string $operation)
+    {
+        $this->operation = $operation;
     }
 }

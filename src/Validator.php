@@ -62,14 +62,18 @@ class Validator
         string $contentType,
         OperationFinder $locator
     ): Error\ErrorInterface {
-        $schema = $locator
-            ->find()
+        $operation = $locator
+            ->find();
+        $schema = $operation
             ->getSchemaByResponse($statusCode, $contentType);
 
         $schema->applyDiscriminatorData($responseData);
 
         $dataValidator = $this->getDataValidator();
 
-        return $dataValidator->validate($responseData, $schema);
+        $error =  $dataValidator->validate($responseData, $schema);
+        $error->setOperation($operation->getOperationId());
+
+        return $error;
     }
 }
