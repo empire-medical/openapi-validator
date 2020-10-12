@@ -8,6 +8,19 @@ class ErrorCollection implements ErrorInterface
     /** @var array|ErrorInterface[] */
     private $errors = [];
 
+    /** @var string */
+    private $operation;
+
+    public function getOperation(): string
+    {
+        return $this->operation;
+    }
+
+    public function setOperation(string $operation)
+    {
+        $this->operation = $operation;
+    }
+
     public function addError(ErrorInterface $error)
     {
         $this->errors[] = $error;
