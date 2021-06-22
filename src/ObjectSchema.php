@@ -17,7 +17,7 @@ class ObjectSchema extends AbstractProperty
 
     /**
      */
-    public function __construct(array $properties, array $required, string $name = '', bool $nullable)
+    public function __construct(array $properties, array $required, string $name = '', bool $nullable = false)
     {
         $this->properties = $properties;
         $this->required = $required;
