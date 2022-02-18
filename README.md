@@ -1,3 +1,8 @@
+## ABANDONED
+
+This project is abandoned. Reasons: 1. there are more mature and better developed libraries similar to this one 2. I don't have time anymore to maintain this.
+If You believe that this project should be still expanded then feel free to fork.
+
 ## What is this? 
 
 Validate data against [openapi v3 spec](https://github.com/OAI/OpenAPI-Specification)
