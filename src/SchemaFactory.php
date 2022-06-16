@@ -80,8 +80,17 @@ class SchemaFactory
                 $discriminatorMappingDereferenced
             );
         }
+        
         if (isset($data['type'])) {
-            if ($data['type'] === 'object') {
+            if (is_array($data['type']) && count($data['type']) == 2 && in_array('null', $data['type'])) {
+                $type = implode(array_diff($data['type'], ['null']));
+                $nullable = true;
+            } else {
+                $type = $data['type'];
+                $nullable = $data['nullable'] ?? false;
+            }
+
+            if ($type === 'object') {
                 $properties = [];
                 if (isset($data['properties'])) {
                     foreach ($data['properties'] as $nameOfProperty => $property) {
@@ -89,13 +98,13 @@ class SchemaFactory
                     }
                 }
 
-                return new ObjectSchema($properties, $data['required'] ?? [], $name ?? '', $data['nullable'] ?? false);
+                return new ObjectSchema($properties, $data['required'] ?? [], $name ?? '', $nullable);
             }
-            if ($data['type'] === 'array') {
-                return new ArrayProperty($name ?? '', $this->fromArray($data['items']), $data['nullable'] ?? false);
+            if ($type === 'array') {
+                return new ArrayProperty($name ?? '', $this->fromArray($data['items']), $nullable);
             }
 
-            return new ScalarProperty($data['type'], $name ?? '', $data['nullable'] ?? false, $data['format'] ?? null);
+            return new ScalarProperty($type, $name ?? '', $nullable, $data['format'] ?? null);
         }
 
         return new UnknownTypeProperty($data['nullable'] ?? false);
